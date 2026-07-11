@@ -1,0 +1,189 @@
+{
+  "theme": "light",
+  "design_philosophy": "Editorial, Premium, Gallery-first. Minimal visual noise, high reliance on typography hierarchy, generous whitespace. Think Sézane, Aesop, Officine Universelle Buly. The goal is to create a digital flagship store that feels like reading a high-end fashion or lifestyle magazine.",
+  "typography": {
+    "fonts": [
+      {
+        "name": "Cormorant Garamond",
+        "type": "heading",
+        "url": "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap",
+        "usage": "All headings, large quotes, editorial callouts. Use font-light or font-normal. Never black/heavy. Apply tracking-tighter for large sizes."
+      },
+      {
+        "name": "Inter",
+        "type": "body",
+        "url": "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap",
+        "usage": "Body text, UI elements, buttons, overlines, prices. Use with wide tracking for overlines (tracking-widest) and uppercase."
+      }
+    ],
+    "scale": {
+      "h1": "text-5xl sm:text-6xl lg:text-7xl tracking-tighter leading-none font-serif",
+      "h2": "text-4xl sm:text-5xl tracking-tight leading-tight font-serif",
+      "h3": "text-2xl sm:text-3xl font-serif",
+      "body": "text-base leading-relaxed text-charcoal/80 font-sans",
+      "overline": "text-xs uppercase tracking-[0.2em] font-sans font-medium text-charcoal/60",
+      "price": "text-lg font-sans text-charcoal",
+      "button": "text-sm tracking-[0.1em] uppercase font-sans font-medium"
+    }
+  },
+  "colors": {
+    "background": {
+      "ivory": "#F9F8F6",
+      "warm_beige": "#EADDD7",
+      "white": "#FFFFFF"
+    },
+    "text": {
+      "charcoal": "#1F1F1F",
+      "charcoal_light": "#4A4A4A"
+    },
+    "brand": {
+      "gold": "#C9A227",
+      "gold_light": "#D8B953",
+      "gold_dark": "#B08D1E"
+    },
+    "utility": {
+      "error": "#9E2A2B",
+      "success": "#2D6A4F",
+      "border": "#E5E0D8"
+    }
+  },
+  "spacing_and_layout": {
+    "philosophy": "Generous Spacing Philosophy. 2-3x more spacing than typical e-commerce. Let the products breathe. Use padding such as p-12, p-20, p-32.",
+    "container": "max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20",
+    "section_spacing": "py-20 md:py-32",
+    "grid": "CSS Grid, gap-8 to gap-16. Use asymmetrical grids for editorial features to create tension and visual interest."
+  },
+  "components": {
+    "announcement_bar": {
+      "layout": "Sticky top, z-[60]. bg-charcoal text-white text-xs tracking-[0.2em] py-2.5 text-center uppercase."
+    },
+    "header": {
+      "layout": "Sticky below announcement bar, z-50. bg-ivory/90 backdrop-blur-xl border-b border-border/40. Logo centered, nav links left, utility icons (search, wishlist, cart) right.",
+      "icons": "Use lucide-react with stroke-width 1.25 for a delicate, refined look."
+    },
+    "hero": {
+      "layout": "Full width or 95vw inset. Split layout: 50% image, 50% typography block on warm_beige, OR 100% image with a minimal bg-black/20 overlay to ensure text contrast.",
+      "content": "CMS-driven headline (H1), subtext, and a sharp, charcoal CTA button. Typography must be left-aligned or perfectly centered depending on the image composition."
+    },
+    "product_card": {
+      "layout": "Aspect ratio 3:4 or 2:3 (tall) for images. Clean ivory background. Text below image.",
+      "image_hover": "Show secondary image on hover, or subtle scale (1.05) with 0.6s ease transition.",
+      "typography": "Product name in Serif (text-lg), Price in Sans (text-base). TTC note in text-xs text-charcoal-light.",
+      "actions": "Wishlist heart top-right (absolute). 'Ajouter au panier' quick add button fades in at the bottom of the image on hover."
+    },
+    "cart_drawer": {
+      "component": "Shadcn Sheet",
+      "layout": "Right side slide-over, 100vh, w-full sm:w-[450px]. bg-ivory shadow-2xl.",
+      "content": "List of items, subtotal, shipping estimator (free shipping progress bar in gold), secure payment icons, massive Charcoal checkout button."
+    },
+    "buttons": {
+      "primary": "bg-charcoal text-white rounded-none px-8 py-4 text-sm tracking-widest uppercase transition-colors duration-300 hover:bg-gold hover:text-white",
+      "secondary": "bg-transparent border border-charcoal text-charcoal rounded-none px-8 py-4 text-sm tracking-widest uppercase transition-colors duration-300 hover:bg-charcoal hover:text-white"
+    },
+    "pdp": {
+      "layout": "2-column on desktop. Sticky right column (product info). Left column: stacked large images or elegant asymmetrical grid.",
+      "elements": "TTC price with TVA note (e.g., 'TVA incluse'), Stock badge, 'Ajouter au panier' sticky mobile bar (bottom fixed on mobile), Shadcn Accordion for descriptions/delivery/returns."
+    },
+    "filters_sidebar": {
+      "layout": "Left sidebar on desktop, Shadcn Sheet on mobile.",
+      "style": "Minimalist Shadcn Checkboxes, clean Shadcn Slider (accent colored gold), Shadcn Accordion groups for categories."
+    },
+    "search_modal": {
+      "component": "Shadcn Dialog",
+      "layout": "Full screen overlay or large top-aligned modal. Clean input with border-b only. Shows recent and suggested products instantly."
+    },
+    "gdpr_banner": {
+      "layout": "Fixed bottom, full width or floating card bottom-left. bg-white border border-border shadow-lg p-6.",
+      "actions": "Primary accept, secondary customize, minimal text link for decline."
+    },
+    "footer": {
+      "layout": "py-24 bg-charcoal text-white. 4 columns: Brand info/Logo, Shop, Legal, Newsletter.",
+      "newsletter": "Minimal input line (border-b border-white/30 bg-transparent text-white focus:border-gold), no heavy box. Trust badges (Visa, Mastercard, PayPal) displayed subtly in grayscale or white."
+    }
+  },
+  "french_copywriting": {
+    "hero": {
+      "headline": "L'Élégance Redéfinie.",
+      "subtext": "Découvrez notre nouvelle collection, pensée pour sublimer votre quotidien avec des matières nobles et un savoir-faire unique.",
+      "cta": "Découvrir la collection"
+    },
+    "cart": {
+      "title": "Votre Panier",
+      "empty": "Votre panier est vide. Découvrez nos nouveautés.",
+      "checkout": "Procéder au paiement",
+      "subtotal": "Sous-total",
+      "shipping_note": "Frais de port calculés à l'étape suivante.",
+      "shipping_estimator": "Plus que 45,00 € pour la livraison offerte."
+    },
+    "product": {
+      "add_to_cart": "Ajouter au panier",
+      "out_of_stock": "Épuisé",
+      "ttc_note": "Prix TTC, hors frais de livraison.",
+      "tva_note": "TVA incluse."
+    },
+    "legal_links": [
+      "Mentions légales",
+      "Conditions Générales de Vente (CGV)",
+      "Politique de confidentialité",
+      "Politique de retour",
+      "Gestion des cookies",
+      "Contactez-nous"
+    ],
+    "gdpr_banner": {
+      "text": "Nous utilisons des cookies pour sublimer votre expérience, analyser notre trafic et vous proposer des offres personnalisées.",
+      "accept": "Tout accepter",
+      "decline": "Continuer sans accepter",
+      "customize": "Personnaliser"
+    },
+    "ui_elements": {
+      "search_placeholder": "Rechercher un produit, une catégorie...",
+      "newsletter_placeholder": "Votre adresse e-mail",
+      "newsletter_cta": "S'inscrire",
+      "filters": "Filtrer",
+      "sort": "Trier par"
+    }
+  },
+  "image_urls": [
+    {
+      "url": "https://images.pexels.com/photos/17228223/pexels-photo-17228223.jpeg",
+      "category": "hero",
+      "description": "Artistic portrait of a fashionable woman posing on a staircase with pearls."
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1664076458686-3449062080ac",
+      "category": "fashion_editorial",
+      "description": "Woman in a silver metallic dress, elegant studio shot. Great for featured categories."
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1667312939978-64cf31718a6e",
+      "category": "lifestyle_home",
+      "description": "Minimalist interior, lamp and books on a table. Ideal for home/lifestyle category."
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1772442364436-6ee6e42302a2",
+      "category": "lifestyle_warm",
+      "description": "Warm sunlight streams across a wooden cabinet. Perfect for 'Why choose us' sections."
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1613521076081-2820f9746a2d",
+      "category": "product_beauty",
+      "description": "Clear glass perfume bottle on white silk textile. Excellent for product detail or best sellers."
+    }
+  ],
+  "universal_guidelines_for_main_agent": [
+    "You MUST use functional, accessible React components. Utilize existing Shadcn UI components from /app/frontend/src/components/ui/. If missing, build them using Tailwind following Shadcn principles.",
+    "Do not use generic centered text for editorial layouts. Use asymmetrical alignments, robust CSS Grid, and generous whitespace.",
+    "Implement glass-morphism sparingly and ONLY when content scrolls underneath (e.g., sticky header: `backdrop-blur-xl bg-ivory/90`).",
+    "NEVER use generic placeholder images or text. Use the provided French copy and image URLs.",
+    "All interactive elements MUST have `data-testid` attributes (e.g., `data-testid=\"add-to-cart-btn\"`).",
+    "Include a GDPR cookie banner at the bottom. It's mandatory for the French market.",
+    "Ensure TTC (Toutes Taxes Comprises) is displayed next to prices where appropriate.",
+    "Currency must be formatted in EUR. Example: `45,00 €`. Note the comma instead of decimal point, and the space before the euro symbol.",
+    "Buttons should be sharp (`rounded-none`) to reflect a premium editorial feel, contrary to bubbly SaaS buttons.",
+    "Ensure high contrast ratios (WCAG AA). Charcoal text on Ivory/Warm Beige backgrounds.",
+    "Avoid `transition: all`. Target specific properties like `transition-colors`, `transition-opacity`, or `transition-transform`.",
+    "Implement scroll-triggered fade-in animations for product cards and editorial sections using Framer Motion (or simple CSS intersections) for a premium feel.",
+    "Ensure the mobile experience has a sticky Add to Cart bar at the bottom of the screen on the Product Detail Page.",
+    "Follow the Anti-AI Designer principles: prioritize tension, contrast, and emotion over safe, symmetrical layouts."
+  ]
+}
