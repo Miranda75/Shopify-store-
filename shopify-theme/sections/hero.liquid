@@ -4,10 +4,10 @@
   {% endif %}
   
   <div class="relative z-10 text-center max-w-2xl px-6">
-    <h1 class="text-5xl md:text-7xl font-serif tracking-tight leading-tight mb-6 text-ivory">{{ section.settings.title }}</h1>
-    <p class="text-lg md:text-xl text-ivory/80 mb-8">{{ section.settings.subtitle }}</p>
+    <h1 class="text-5xl md:text-7xl font-serif tracking-tight leading-tight mb-6 text-white">{{ section.settings.title }}</h1>
+    <p class="text-lg md:text-xl text-white/80 mb-8">{{ section.settings.subtitle }}</p>
     {% if section.settings.cta_text and section.settings.cta_link %}
-      <a href="{{ section.settings.cta_link }}" class="inline-block bg-charcoal text-ivory px-8 py-4 text-sm uppercase tracking-widest font-medium hover:bg-gold hover:text-ivory transition-colors">
+      <a href="{{ section.settings.cta_link }}" class="inline-block bg-white text-white px-8 py-4 text-sm uppercase tracking-widest font-medium hover:bg-gold hover:text-ivory transition-colors">
         {{ section.settings.cta_text }}
       </a>
     {% endif %}
