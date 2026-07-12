@@ -15,8 +15,12 @@
     {% endif %}
     
     {% if section.settings.cta_text and section.settings.cta_link %}
-      <a href="{{ section.settings.cta_link }}" class="inline-block bg-charcoal text-white px-8 py-4 text-sm uppercase tracking-widest font-medium hover:bg-gold hover:text-ivory transition-colors">
-        {{ section.settings.cta_text }}
+      
+
+<a href="{{ section.settings.cta_link }}"
+   class="inline-block px-8 py-4 text-sm uppercase tracking-widest"
+   style="background:#111111;color:#ffffff;border:2px solid #ffffff;">
+  {{ section.settings.cta_text }}
       </a>
     {% endif %}
   </div>
