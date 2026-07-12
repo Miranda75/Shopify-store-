@@ -1,41 +1,16 @@
 [
   {
-    "name": "Paramètres généraux",
+    "name": "Thème",
     "settings": [
       {
-        "type": "text",
-        "id": "footer_brand_description",
-        "label": "Description de la marque",
-        "default": "Une maison française dédiée aux objets d'exception."
+        "type": "header",
+        "content": "Paramètres généraux"
       },
       {
         "type": "text",
-        "id": "footer_copyright",
-        "label": "Copyright",
-        "default": "Le Choix de Miranda · Tous droits réservés"
-      }
-    ]
-  },
-  {
-    "name": "Couleurs",
-    "settings": [
-      {
-        "type": "color",
-        "id": "color_background",
-        "label": "Fond principal",
-        "default": "#F9F8F6"
-      },
-      {
-        "type": "color",
-        "id": "color_text",
-        "label": "Texte principal",
-        "default": "#1F1F1F"
-      },
-      {
-        "type": "color",
-        "id": "color_accent",
-        "label": "Accent (or)",
-        "default": "#C9A227"
+        "id": "store_name",
+        "label": "Nom du magasin",
+        "default": "Le Choix de Miranda"
       }
     ]
   }
