@@ -181,3 +181,14 @@ input, select, textarea {
   .md\:text-7xl { font-size: 4.5rem; }
   .md\:text-xl { font-size: 1.25rem; }
 }
+.hero h1,
+.hero h2,
+.hero p {
+    color: #ffffff !important;
+    text-shadow: 2px 2px 8px rgba(0,0,0,.6);
+}
+
+.hero .btn {
+    background: #ffffff;
+    color: #000000;
+}
