@@ -1,3 +1,11 @@
+{% if request.design_mode %}
+  <style>
+    .section-header {
+      padding: 1.5rem 1.5rem;
+    }
+  </style>
+{% endif %}
+
 <header class="sticky top-0 z-40 bg-ivory border-b border-border/50">
   <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
     <a href="{{ shop.url }}" class="font-serif text-2xl text-charcoal">{{ shop.name }}</a>
@@ -10,7 +18,19 @@
     
     <div class="flex gap-4">
       <a href="{{ shop.url }}/cart" class="text-charcoal hover:text-gold">Cart ({{ cart.item_count }})</a>
-      <button class="md:hidden text-charcoal">Menu</button>
+      <button class="md:hidden text-charcoal" type="button" aria-label="Open menu">Menu</button>
     </div>
   </div>
 </header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Header Settings"
+    }
+  ]
+}
+{% endschema %}

@@ -1,9 +1,17 @@
+{% if request.design_mode %}
+  <style>
+    .section-footer {
+      padding: 1.5rem 1.5rem;
+    }
+  </style>
+{% endif %}
+
 <footer class="bg-charcoal text-ivory mt-24 py-20">
   <div class="max-w-7xl mx-auto px-6">
     <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
       <div>
         <h3 class="font-serif text-lg mb-4">{{ shop.name }}</h3>
-        <p class="text-sm text-ivory/70">{{ settings.footer_brand_description }}</p>
+        <p class="text-sm text-ivory/70">{{ section.settings.footer_brand_description }}</p>
       </div>
       
       <div>
@@ -27,7 +35,7 @@
       <div>
         <h4 class="text-xs uppercase tracking-widest text-gold mb-6">Newsletter</h4>
         <p class="text-sm text-ivory/70 mb-4">Abonnez-vous pour des actualités exclusives</p>
-        <form class="flex flex-col gap-3">
+        <form class="flex flex-col gap-3" method="post" action="{{ section.settings.newsletter_url | default: '#' }}">
           <input type="email" placeholder="Email" class="bg-transparent border-b border-ivory/30 py-2 text-ivory text-sm focus:outline-none focus:border-gold transition-colors" required>
           <button type="submit" class="text-xs uppercase tracking-widest text-gold hover:text-ivory transition-colors">S'inscrire</button>
         </form>
@@ -35,8 +43,33 @@
     </div>
     
     <div class="border-t border-ivory/15 pt-8 flex justify-between items-center text-xs text-ivory/50">
-      <p>© {{ 'now' | date: '%Y' }} {{ settings.footer_copyright }}</p>
+      <p>© {{ 'now' | date: '%Y' }} {{ section.settings.footer_copyright }}</p>
       <p>Fait avec soin à Paris</p>
     </div>
   </div>
 </footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "text",
+      "id": "footer_brand_description",
+      "label": "Description de la marque",
+      "default": "Une maison française dédiée aux objets d'exception."
+    },
+    {
+      "type": "text",
+      "id": "footer_copyright",
+      "label": "Copyright",
+      "default": "Le Choix de Miranda · Tous droits réservés"
+    },
+    {
+      "type": "url",
+      "id": "newsletter_url",
+      "label": "URL Newsletter"
+    }
+  ]
+}
+{% endschema %}

@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ page_title }}{% if page_title != shop.name %} · {{ shop.name }}{% endif %}</title>
   <meta name="description" content="{{ page_description | escape }}">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{{ page_title }}">
+  <meta property="og:description" content="{{ page_description | escape }}">
+  <meta property="og:url" content="{{ canonical_url }}">
   
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   
@@ -13,11 +17,11 @@
   {% if canonical_url != blank %}
     <link rel="canonical" href="{{ canonical_url }}">
   {% endif %}
+  
+  {{ content_for_header }}
 </head>
 
 <body class="bg-ivory text-charcoal font-sans">
-  <a href="#main" class="sr-only">{{ 'general.skip_to_content' | t }}</a>
-  
   {% section 'header' %}
   
   <main id="main" class="flex-1">

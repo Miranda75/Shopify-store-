@@ -1,5 +1,9 @@
 {
   "sections": {
+    "header": {
+      "type": "header",
+      "settings": {}
+    },
     "hero": {
       "type": "hero",
       "settings": {
@@ -8,7 +12,15 @@
         "cta_text": "Découvrir",
         "cta_link": "/collections/all"
       }
+    },
+    "footer": {
+      "type": "footer",
+      "settings": {}
     }
   },
-  "order": ["hero"]
+  "order": [
+    "header",
+    "hero",
+    "footer"
+  ]
 }
