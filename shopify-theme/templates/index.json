@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "title": "L'Élégance Redéfinie",
+        "subtitle": "Découvrez notre nouvelle collection",
+        "cta_text": "Découvrir",
+        "cta_link": "/collections/all"
+      }
+    }
+  },
+  "order": ["hero"]
+}
