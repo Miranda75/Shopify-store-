@@ -72,3 +72,14 @@ h1, h2, h3, h4, h5, h6 {
   .md\:flex { display: flex; }
   .md\:grid { display: grid; }
 }
+.hero h1,
+.hero h2,
+.hero p {
+  color: #ffffff !important;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+}
+
+.hero .btn {
+  background: #ffffff;
+  color: #000000;
+}
