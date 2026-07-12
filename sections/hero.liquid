@@ -1,0 +1,54 @@
+<section class="relative w-full min-h-96 md:min-h-screen flex items-center justify-center bg-warm-beige overflow-hidden">
+  {% if section.settings.image %}
+    <img src="{{ section.settings.image | img_url: '1440x900' }}" alt="Hero" class="absolute inset-0 w-full h-full object-cover">
+  {% endif %}
+  
+  <div class="relative z-10 text-center max-w-2xl px-6">
+    <h1 class="text-5xl md:text-7xl font-serif tracking-tight leading-tight mb-6 text-charcoal">{{ section.settings.title }}</h1>
+    <p class="text-lg md:text-xl text-charcoal/80 mb-8">{{ section.settings.subtitle }}</p>
+    {% if section.settings.cta_text and section.settings.cta_link %}
+      <a href="{{ section.settings.cta_link }}" class="inline-block bg-charcoal text-ivory px-8 py-4 text-sm uppercase tracking-widest font-medium hover:bg-gold hover:text-ivory transition-colors">
+        {{ section.settings.cta_text }}
+      </a>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titre",
+      "default": "L'Élégance Redéfinie"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Sous-titre",
+      "default": "Découvrez notre nouvelle collection"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image de fond"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Texte du bouton",
+      "default": "Découvrir"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Lien du bouton"
+    }
+  ],
+  "presets": [{
+    "name": "Hero"
+  }]
+}
+{% endschema %}

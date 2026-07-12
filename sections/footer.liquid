@@ -1,0 +1,42 @@
+<footer class="bg-charcoal text-ivory mt-24 py-20">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+      <div>
+        <h3 class="font-serif text-lg mb-4">{{ shop.name }}</h3>
+        <p class="text-sm text-ivory/70">{{ settings.footer_brand_description }}</p>
+      </div>
+      
+      <div>
+        <h4 class="text-xs uppercase tracking-widest text-gold mb-6">Boutique</h4>
+        <ul class="space-y-3 text-sm text-ivory/80">
+          {% for collection in shop.collections limit: 5 %}
+            <li><a href="{{ collection.url }}" class="hover:text-gold transition-colors">{{ collection.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+      
+      <div>
+        <h4 class="text-xs uppercase tracking-widest text-gold mb-6">Légal</h4>
+        <ul class="space-y-3 text-sm text-ivory/80">
+          <li><a href="/pages/contact" class="hover:text-gold transition-colors">Contact</a></li>
+          <li><a href="/policies/privacy-policy" class="hover:text-gold transition-colors">Confidentialité</a></li>
+          <li><a href="/policies/terms-of-service" class="hover:text-gold transition-colors">CGV</a></li>
+        </ul>
+      </div>
+      
+      <div>
+        <h4 class="text-xs uppercase tracking-widest text-gold mb-6">Newsletter</h4>
+        <p class="text-sm text-ivory/70 mb-4">Abonnez-vous pour des actualités exclusives</p>
+        <form class="flex flex-col gap-3">
+          <input type="email" placeholder="Email" class="bg-transparent border-b border-ivory/30 py-2 text-ivory text-sm focus:outline-none focus:border-gold transition-colors" required>
+          <button type="submit" class="text-xs uppercase tracking-widest text-gold hover:text-ivory transition-colors">S'inscrire</button>
+        </form>
+      </div>
+    </div>
+    
+    <div class="border-t border-ivory/15 pt-8 flex justify-between items-center text-xs text-ivory/50">
+      <p>© {{ 'now' | date: '%Y' }} {{ settings.footer_copyright }}</p>
+      <p>Fait avec soin à Paris</p>
+    </div>
+  </div>
+</footer>
