@@ -1,6 +1,9 @@
 <section class="relative w-full min-h-96 md:min-h-screen flex items-center justify-center bg-warm-beige overflow-hidden">
   {% if section.settings.image %}
-    <img src="{{ section.settings.image | img_url: '1440x900' }}" alt="{{ section.settings.title }}" class="absolute inset-0 w-full h-full object-cover">
+{{ section.settings.image | image_url: width: 2000 | image_tag:
+  class: "absolute inset-0 w-full h-full object-cover",
+  loading: "lazy"
+}} alt="{{ section.settings.title }}" class="absolute inset-0 w-full h-full object-cover">
   {% endif %}
   
   <div class="relative z-10 text-center max-w-2xl px-6">
