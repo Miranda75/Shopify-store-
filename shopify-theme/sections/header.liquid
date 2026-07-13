@@ -1,16 +1,17 @@
-<header class="sticky top-0 z-40 bg-ivory border-b border-border/50">
-  <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
-    <a href="{{ shop.url }}" class="font-serif text-2xl text-charcoal">{{ shop.name }}</a>
-    
-    <nav class="hidden md:flex gap-8">
-      {% for link in linklists.main-menu.links %}
-        <a href="{{ link.url }}" class="text-sm uppercase tracking-widest text-charcoal hover:text-gold transition-colors">{{ link.title }}</a>
-      {% endfor %}
+
+<header class="site-header">
+  <div class="container">
+    <a class="logo" href="{{ routes.root_url }}">
+      {{ shop.name }}
+    </a>
+
+    <nav>
+      <a href="/">Accueil</a>
+      <a href="/collections/all">Boutique</a>
+      <a href="/pages/contact">Contact</a>
     </nav>
-    
-    <div class="flex gap-4">
-      <a href="{{ shop.url }}/cart" class="text-charcoal hover:text-gold">Cart ({{ cart.item_count }})</a>
-      <button class="md:hidden text-charcoal">Menu</button>
-    </div>
   </div>
 </header>
+
+
+
