@@ -77,6 +77,36 @@ h1, h2, h3, h4, h5, h6 {
 .hero p {
   color: #ffffff !important;
   text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+
+  .site-header{
+    background:#fff;
+    padding:20px 40px;
+    border-bottom:1px solid #ddd;
+}
+
+.site-header .container{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.site-header .logo{
+    font-size:30px;
+    font-family:'Cormorant Garamond',serif;
+    color:#000;
+    text-decoration:none;
+}
+
+.site-header nav a{
+    margin-left:30px;
+    color:#333;
+    text-decoration:none;
+    font-weight:500;
+}
+
+.site-header nav a:hover{
+    color:#b08d57;
+}
 }
 
 .hero .btn {
