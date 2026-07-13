@@ -17,8 +17,10 @@
 
 <body class="bg-ivory text-charcoal font-sans">
   <a href="#main" class="sr-only">{{ 'general.skip_to_content' | t }}</a>
-  
+
+  <body>
   {% section 'header' %}
+  <main id="main">
   
   <main id="main" class="flex-1">
     {{ content_for_layout }}
