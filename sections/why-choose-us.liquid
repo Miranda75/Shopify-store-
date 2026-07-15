@@ -1,0 +1,73 @@
+<section class="why-choose-us">
+  <div class="page-width">
+    <h2>Pourquoi choisir Le Choix de Miranda ?</h2>
+
+    <div class="features">
+      <div class="feature">
+        <span>🚚</span>
+        <h3>Livraison rapide</h3>
+        <p>Expédition rapide partout en France.</p>
+      </div>
+
+      <div class="feature">
+        <span>🔒</span>
+        <h3>Paiement sécurisé</h3>
+        <p>Paiement 100% sécurisé.</p>
+      </div>
+
+      <div class="feature">
+        <span>⭐</span>
+        <h3>Produits premium</h3>
+        <p>Chaque article est choisi avec soin pour garantir qualité et élégance.</p>
+      </div>
+
+      <div class="feature">
+        <span>❤️</span>
+        <h3>Service client</h3>
+        <p>Notre équipe est à votre écoute avant et après votre achat.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.why-choose-us{
+  padding:70px 20px;
+  background:#f8f8f8;
+}
+.why-choose-us h2{
+  text-align:center;
+  margin-bottom:40px;
+  font-size:36px;
+}
+.features{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:25px;
+}
+.feature{
+  background:#fff;
+  padding:30px;
+  border-radius:16px;
+  text-align:center;
+  box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+.feature span{
+  font-size:42px;
+}
+.feature h3{
+  margin-top:15px;
+}
+</style>
+
+{% schema %}
+{
+  "name": "Why Choose Us",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Why Choose Us"
+    }
+  ]
+}
+{% endschema %}
