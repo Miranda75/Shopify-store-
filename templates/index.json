@@ -14,8 +14,8 @@
       "settings": {
         "title": "Le Choix de Miranda",
         "subtitle": "Découvrez une sélection de produits élégants pour votre quotidien.",
-        "image": "shopify://shop_images/IMG_7083.jpg",
-        "cta_text": "Découvrir",
+        "image": "shopify://shop_images/le_choix.png",
+        "cta_text": "D",
         "cta_link": "/collections/all"
       }
     },
