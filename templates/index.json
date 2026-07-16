@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
@@ -5,7 +14,7 @@
       "settings": {
         "title": "Le Choix de Miranda",
         "subtitle": "Découvrez une sélection de produits élégants pour votre quotidien.",
-        "image": "shopify://shop_images/Hero_6925.jpg",
+        "image": "shopify://shop_images/IMG_7083.jpg",
         "cta_text": "Découvrir",
         "cta_link": "/collections/all"
       }
@@ -20,5 +29,3 @@
     "why_choose_us"
   ]
 }
-
- 
