@@ -3,44 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>
-{% if template == 'index' %}
-Le choix de Miranda | Premium Online Store in France
-{% else %}
-{{ page_title }} | Le choix de Miranda
-{% endif %}
-</title>
-<meta name="description" content="{% if page_description != blank %}{{ page_description | escape }}{% else %}Découvrez une sélection de produits de qualité pour la maison, le sport, la beauté et le quotidien. Livraison rapide, paiement sécurisé et service client de confiance chez Le choix de Miranda.{% endif %}">
-
+  <title>{{ page_title }}{% if page_title != shop.name %} · {{ shop.name }}{% endif %}</title>
+  <meta name="description" content="{% if page_description != blank %}{{ page_description | escape }}{% else %}Découvrez une sélection premium pour la maison, le style, la beauté et le quotidien chez {{ shop.name }}.{% endif %}">
   <meta property="og:type" content="website">
-<meta property="og:title" content="{{ page_title }}">
-<meta property="og:description" content="{{ page_description | escape }}">
-<meta property="og:url" content="{{ canonical_url }}">
-<meta property="og:site_name" content="{{ shop.name }}">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="{{ page_title }}">
-<meta name="twitter:description" content="{{ page_description | escape }}">
+  <meta property="og:title" content="{{ page_title }}">
+  <meta property="og:description" content="{{ page_description | escape }}">
+  <meta property="og:url" content="{{ canonical_url }}">
+  <meta property="og:site_name" content="{{ shop.name }}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ page_title }}">
+  <meta name="twitter:description" content="{{ page_description | escape }}">
 
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  
+
   {{ 'theme.css' | asset_url | stylesheet_tag }}
-  
+
   {% if canonical_url != blank %}
     <link rel="canonical" href="{{ canonical_url }}">
   {% endif %}
+
+  {{ content_for_header }}
 </head>
+<body>
+  <a class="miranda-skip-link" href="#MainContent">Aller au contenu</a>
 
-<body class="bg-ivory text-charcoal font-sans">
-  <a href="#main" class="sr-only">{{ 'general.skip_to_content' | t }}</a>
-
-  
   {% section 'header' %}
-  <main id="main" class="flex-1">
+
+  <main id="MainContent">
     {{ content_for_layout }}
   </main>
-  
+
   {% section 'footer' %}
-  
+
   {{ 'theme.js' | asset_url | script_tag }}
 </body>
 </html>
