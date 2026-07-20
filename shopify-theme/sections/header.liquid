@@ -1,17 +1,97 @@
+{% liquid
+  assign announcement_text = section.settings.announcement_text | default: '✨ Livraison offerte dès 70 € • 🔒 Paiement 100 % sécurisé • ↩ Retours gratuits sous 14 jours'
+  assign menu_handle = section.settings.menu | default: 'main-menu'
+  assign menu_links = linklists[menu_handle].links
+%}
 
-<header class="site-header">
-  <div class="container">
-    <a class="logo" href="{{ routes.root_url }}">
-      {{ shop.name }}
+<div class="miranda-announcement-bar">
+  <div class="miranda-shell">
+    <p>{{ announcement_text }}</p>
+  </div>
+</div>
+
+<header class="miranda-header" data-header>
+  <div class="miranda-shell miranda-header__inner">
+    <button class="miranda-icon-button miranda-mobile-only" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="miranda-mobile-menu" data-mobile-menu-toggle>
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M3 6h18M3 12h18M3 18h18" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path>
+      </svg>
+    </button>
+
+    <nav class="miranda-header__nav miranda-desktop-only" aria-label="Navigation principale">
+      {% for link in menu_links limit: 3 %}
+        <a href="{{ link.url }}">{{ link.title }}</a>
+      {% endfor %}
+    </nav>
+
+    <a href="{{ routes.root_url }}" class="miranda-brand" aria-label="{{ shop.name }}">
+      <span class="miranda-brand__mark">LM</span>
+      <span class="miranda-brand__text">
+        <span class="miranda-brand__name">Le Choix de Miranda</span>
+        <span class="miranda-brand__tag">Maison · Paris</span>
+      </span>
     </a>
 
-    <nav>
-      <a href="/">Accueil</a>
-      <a href="/collections/all">Boutique</a>
-      <a href="/pages/contact">Contact</a>
+    <nav class="miranda-header__nav miranda-desktop-only miranda-header__nav--right" aria-label="Navigation secondaire">
+      {% for link in menu_links offset: 3 %}
+        <a href="{{ link.url }}">{{ link.title }}</a>
+      {% endfor %}
     </nav>
+
+    <div class="miranda-header__actions">
+      <a href="{{ routes.search_url }}" class="miranda-icon-button" aria-label="Rechercher">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.6"></circle>
+          <path d="M16 16l5 5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.6"></path>
+        </svg>
+      </a>
+      <a href="{{ routes.account_url | default: '/account' }}" class="miranda-icon-button" aria-label="Mon compte">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="8" r="3.5" fill="none" stroke="currentColor" stroke-width="1.6"></circle>
+          <path d="M5 20c1.8-3.8 11.2-3.8 14 0" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.6"></path>
+        </svg>
+      </a>
+      <a href="{{ routes.cart_url }}" class="miranda-icon-button miranda-cart-link" aria-label="Panier">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M7 9V7a5 5 0 0 1 10 0v2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path>
+          <path d="M5.5 9.5h13l-1.2 10H6.7z" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1.6"></path>
+        </svg>
+        {% if cart.item_count > 0 %}
+          <span class="miranda-badge">{{ cart.item_count }}</span>
+        {% endif %}
+      </a>
+    </div>
   </div>
+
+  <nav class="miranda-mobile-menu" id="miranda-mobile-menu" aria-label="Navigation mobile" hidden>
+    <div class="miranda-shell miranda-mobile-menu__inner">
+      {% for link in menu_links %}
+        <a href="{{ link.url }}">{{ link.title }}</a>
+      {% endfor %}
+      <div class="miranda-mobile-menu__meta">
+        <a href="{{ routes.account_url | default: '/account' }}">Mon compte</a>
+        <a href="/pages/contact">Contact</a>
+      </div>
+    </div>
+  </nav>
 </header>
 
-
-
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "Texte annonce",
+      "default": "✨ Livraison offerte dès 70 € • 🔒 Paiement 100 % sécurisé • ↩ Retours gratuits sous 14 jours"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu"
+    }
+  ]
+}
+{% endschema %}

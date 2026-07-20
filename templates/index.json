@@ -12,16 +12,23 @@
     "hero": {
       "type": "hero",
       "settings": {
-        "title": "L'Élégance dans chaque détail",
-        "subtitle": "Découvrez une sélection raffinée d'articles soigneusement choisis pour sublimer votre quotidien.",
         "image": "shopify://shop_images/le_choix.png",
+        "image_alt": "Visuel éditorial Le Choix de Miranda",
+        "subtitle": "Sélectionné pour vous",
+        "title": "Le choix qui vous rassemble",
         "cta_text": "Découvrir la collection",
         "cta_link": "/collections/all"
       }
     },
     "why_choose_us": {
       "type": "why-choose-us",
-      "settings": {}
+      "settings": {
+        "eyebrow": "✨ Club Le Choix",
+        "title": "Recevez en avant-première nos nouveautés",
+        "text": "Inscrivez-vous pour découvrir nos nouveaux arrivages, nos éditos et nos offres privées avant tout le monde.",
+        "cta_text": "Rejoindre le club",
+        "cta_link": "/pages/contact"
+      }
     }
   },
   "order": [

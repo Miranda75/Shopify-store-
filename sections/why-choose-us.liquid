@@ -1,72 +1,85 @@
-<section class="why-choose-us">
-  <div class="page-width">
-    <h2>Pourquoi choisir Le Choix de Miranda ?</h2>
+<section class="miranda-club-section">
+  <div class="miranda-shell miranda-club-section__inner">
+    <div class="miranda-club-section__content">
+      {% if section.settings.eyebrow != blank %}
+        <p class="miranda-eyebrow">{{ section.settings.eyebrow }}</p>
+      {% endif %}
 
-    <div class="features">
-      <div class="feature">
-        <span>🚚</span>
-        <h3>Livraison rapide</h3>
-        <p>Expédition rapide partout en France.</p>
+      {% if section.settings.title != blank %}
+        <h2>{{ section.settings.title }}</h2>
+      {% endif %}
+
+      {% if section.settings.text != blank %}
+        <p class="miranda-club-section__text">{{ section.settings.text }}</p>
+      {% endif %}
+
+      <div class="miranda-club-section__highlights">
+        <span>Avant-premières exclusives</span>
+        <span>Retours offerts sous 14 jours</span>
+        <span>Livraison suivie partout en France</span>
       </div>
 
-      <div class="feature">
-        <span>🔒</span>
-        <h3>Paiement sécurisé</h3>
-        <p>Paiement 100% sécurisé.</p>
-      </div>
+      {% if section.settings.cta_text != blank and section.settings.cta_link != blank %}
+        <a href="{{ section.settings.cta_link }}" class="miranda-button miranda-button--secondary">{{ section.settings.cta_text }}</a>
+      {% endif %}
+    </div>
 
-      <div class="feature">
-        <span>⭐</span>
-        <h3>Produits premium</h3>
-        <p>Chaque article est choisi avec soin pour garantir qualité et élégance.</p>
-      </div>
-
-      <div class="feature">
-        <span>❤️</span>
-        <h3>Service client</h3>
-        <p>Notre équipe est à votre écoute avant et après votre achat.</p>
-      </div>
+    <div class="miranda-club-section__card">
+      {% if section.settings.image %}
+        {{ section.settings.image | image_url: width: 1200 | image_tag: class: 'miranda-club-section__image', loading: 'lazy', alt: section.settings.title | escape }}
+      {% else %}
+        <div class="miranda-club-section__card-copy">
+          <p class="miranda-eyebrow">Le Cercle</p>
+          <h3>Recevez en avant-première nos sélections, nos nouveautés et nos offres privées.</h3>
+          <p>Une sélection raffinée, pensée pour rester élégante sur mobile comme sur desktop.</p>
+        </div>
+      {% endif %}
     </div>
   </div>
 </section>
 
-<style>
-.why-choose-us{
-  padding:70px 20px;
-  background:#f8f8f8;
-}
-.why-choose-us h2{
-  text-align:center;
-  margin-bottom:40px;
-  font-size:36px;
-}
-.features{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:25px;
-}
-.feature{
-  background:#fff;
-  padding:30px;
-  border-radius:16px;
-  text-align:center;
-  box-shadow:0 8px 20px rgba(0,0,0,.08);
-}
-.feature span{
-  font-size:42px;
-}
-.feature h3{
-  margin-top:15px;
-}
-</style>
-
 {% schema %}
 {
-  "name": "Why Choose Us",
-  "settings": [],
+  "name": "Club Le Choix",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Sur-titre",
+      "default": "✨ Club Le Choix"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titre",
+      "default": "Recevez en avant-première nos nouveautés"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Texte",
+      "default": "Inscrivez-vous pour découvrir nos nouveaux arrivages, nos éditos et nos offres privées avant tout le monde."
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Texte du bouton",
+      "default": "Rejoindre le club"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Lien du bouton"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image d'accompagnement"
+    }
+  ],
   "presets": [
     {
-      "name": "Why Choose Us"
+      "name": "Club Le Choix"
     }
   ]
 }

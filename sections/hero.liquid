@@ -1,37 +1,44 @@
-<section class="relative w-full min-h-[80vh] md:min-h-screen flex items-center justify-center overflow-hidden">
+{% liquid
+  assign featured_menu = linklists['main-menu']
+%}
 
-  {% if section.settings.image %}
-    {{ section.settings.image | image_url: width: 2200 | image_tag:
-      class: "absolute inset-0 w-full h-full object-cover",
-      loading: "eager"
-    }}
-  {% endif %}
+<section class="miranda-home-hero">
+  <div class="miranda-shell">
+    <div class="miranda-home-hero__frame">
+      {% if section.settings.image %}
+        {{ section.settings.image | image_url: width: 2200 | image_tag: class: 'miranda-home-hero__image', loading: 'eager', alt: section.settings.image_alt | default: section.settings.title | escape }}
+      {% else %}
+        <div class="miranda-home-hero__placeholder">
+          <p>Ajoutez votre visuel homepage dans les paramètres de la section Hero.</p>
+        </div>
+      {% endif %}
+    </div>
 
-  <div class="absolute inset-0 bg-black/40"></div>
-
-  <div class="relative z-10 max-w-3xl text-center px-6">
-
-    {% if section.settings.title %}
-      <h1 class="text-5xl md:text-7xl font-serif font-light leading-tight text-white mb-6">
-        {{ section.settings.title }}
-      </h1>
+    {% if section.settings.subtitle != blank or section.settings.title != blank or section.settings.cta_text != blank %}
+      <div class="miranda-home-hero__content">
+        {% if section.settings.subtitle != blank %}
+          <p class="miranda-eyebrow">{{ section.settings.subtitle }}</p>
+        {% endif %}
+        {% if section.settings.title != blank %}
+          <h1>{{ section.settings.title }}</h1>
+        {% endif %}
+        {% if section.settings.cta_text != blank and section.settings.cta_link != blank %}
+          <a href="{{ section.settings.cta_link }}" class="miranda-button miranda-button--primary">{{ section.settings.cta_text }}</a>
+        {% endif %}
+      </div>
     {% endif %}
 
-    {% if section.settings.subtitle %}
-      <p class="text-lg md:text-2xl text-white/90 mb-10">
-        {{ section.settings.subtitle }}
-      </p>
+    {% if featured_menu != blank and featured_menu.links.size > 0 %}
+      <div class="miranda-category-strip" aria-label="Univers boutique">
+        {% for link in featured_menu.links limit: 6 %}
+          <a href="{{ link.url }}" class="miranda-category-card">
+            <span class="miranda-category-card__label">{{ link.title }}</span>
+            <span class="miranda-category-card__cta">Explorer ↗</span>
+          </a>
+        {% endfor %}
+      </div>
     {% endif %}
-
-    {% if section.settings.cta_text and section.settings.cta_link %}
-      <a href="{{ section.settings.cta_link }}"
-         class="inline-block px-10 py-4 border-2 border-white text-white uppercase tracking-[4px] hover:bg-white hover:text-black transition duration-300">
-        {{ section.settings.cta_text }}
-      </a>
-    {% endif %}
-
   </div>
-
 </section>
 
 {% schema %}
@@ -39,35 +46,39 @@
   "name": "Hero",
   "settings": [
     {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image principale"
+    },
+    {
       "type": "text",
-      "id": "title",
-      "label": "Titre",
-      "default": "L'Élégance Redéfinie"
+      "id": "image_alt",
+      "label": "Texte alternatif image",
+      "default": "Visuel éditorial Le Choix de Miranda"
     },
     {
       "type": "text",
       "id": "subtitle",
-      "label": "Sous-titre",
-      "default": "Découvrez notre nouvelle collection"
+      "label": "Sur-titre",
+      "default": "Sélectionné pour vous"
     },
     {
-      "type": "image_picker",
-      "id": "image",
-      "label": "Image de fond"
+      "type": "text",
+      "id": "title",
+      "label": "Titre",
+      "default": "Le choix qui vous rassemble"
     },
     {
       "type": "text",
       "id": "cta_text",
       "label": "Texte du bouton",
-      "default": "Découvrir La Collection"
+      "default": "Découvrir la collection"
     },
-{
-  "type": "url",
-  "id": "cta_link",
-  "label": "Lien du bouton"
-}
-    
-    
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Lien du bouton"
+    }
   ],
   "presets": [
     {

@@ -1,22 +1,18 @@
-document.addEventListener('DOMContentLoaded', function() {
-  console.log('Shopify Liquid Theme loaded');
-  
-  // Mobile menu toggle
-  const menuButton = document.querySelector('button:nth-of-type(1)');
-  if (menuButton) {
-    menuButton.addEventListener('click', function(e) {
-      e.preventDefault();
-      console.log('Menu toggle');
+(function () {
+  'use strict';
+
+  function setupMobileMenu() {
+    var toggle = document.querySelector('[data-mobile-menu-toggle]');
+    var menu = document.getElementById('miranda-mobile-menu');
+
+    if (!toggle || !menu) return;
+
+    toggle.addEventListener('click', function () {
+      var isOpen = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!isOpen));
+      menu.hidden = isOpen;
     });
   }
-  
-  // Cart drawer
-  const cartLink = document.querySelector('a[href*="cart"]');
-  if (cartLink) {
-    cartLink.addEventListener('click', function(e) {
-      if (window.innerWidth < 768) {
-        e.preventDefault();
-      }
-    });
-  }
-});
+
+  document.addEventListener('DOMContentLoaded', setupMobileMenu);
+})();

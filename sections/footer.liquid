@@ -1,48 +1,61 @@
-{% if request.design_mode %}
-  <style>
-    .section-footer {
-      padding: 1.5rem 1.5rem;
-    }
-  </style>
-{% endif %}
-
-<footer class="bg-charcoal text-ivory mt-24 py-20">
-  <div class="max-w-7xl mx-auto px-6">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-      <div>
-        <h3 class="font-serif text-lg mb-4">{{ shop.name }}</h3>
-        <p class="text-sm text-ivory/70">{{ section.settings.footer_brand_description }}</p>
+<footer class="miranda-footer">
+  <div class="miranda-shell">
+    <div class="miranda-footer__grid">
+      <div class="miranda-footer__brand">
+        <a href="{{ routes.root_url }}" class="miranda-brand miranda-brand--light" aria-label="{{ shop.name }}">
+          <span class="miranda-brand__mark">LM</span>
+          <span class="miranda-brand__text">
+            <span class="miranda-brand__name">Le Choix de Miranda</span>
+            <span class="miranda-brand__tag">Maison · Paris</span>
+          </span>
+        </a>
+        <p>{{ section.settings.footer_brand_description }}</p>
       </div>
-      
+
       <div>
-        <h4 class="text-xs uppercase tracking-widest text-gold mb-6">Boutique</h4>
-        <ul class="space-y-3 text-sm text-ivory/80">
-          {% for collection in shop.collections limit: 5 %}
-            <li><a href="{{ collection.url }}" class="hover:text-gold transition-colors">{{ collection.title }}</a></li>
+        <h3>Boutique</h3>
+        <ul>
+          {% for link in linklists.main-menu.links limit: 6 %}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
           {% endfor %}
         </ul>
       </div>
-      
+
       <div>
-        <h4 class="text-xs uppercase tracking-widest text-gold mb-6">Légal</h4>
-        <ul class="space-y-3 text-sm text-ivory/80">
-          <li><a href="/pages/contact" class="hover:text-gold transition-colors">Contact</a></li>
-          <li><a href="/policies/privacy-policy" class="hover:text-gold transition-colors">Confidentialité</a></li>
-          <li><a href="/policies/terms-of-service" class="hover:text-gold transition-colors">CGV</a></li>
+        <h3>Informations</h3>
+        <ul>
+          <li><a href="/pages/contact">Contact</a></li>
+          <li><a href="/policies/privacy-policy">Politique de confidentialité</a></li>
+          <li><a href="/policies/terms-of-service">Conditions générales</a></li>
+          <li><a href="/policies/refund-policy">Politique de retour</a></li>
         </ul>
       </div>
-      
+
       <div>
-        <h4 class="text-xs uppercase tracking-widest text-gold mb-6">Newsletter</h4>
-        <p class="text-sm text-ivory/70 mb-4">Abonnez-vous pour des actualités exclusives</p>
-        <form class="flex flex-col gap-3" method="post" action="{{ section.settings.newsletter_url | default: '#' }}">
-          <input type="email" placeholder="Email" class="bg-transparent border-b border-ivory/30 py-2 text-ivory text-sm focus:outline-none focus:border-gold transition-colors" required>
-          <button type="submit" class="text-xs uppercase tracking-widest text-gold hover:text-ivory transition-colors">S'inscrire</button>
-        </form>
+        <h3>Newsletter</h3>
+        <p>{{ section.settings.newsletter_text }}</p>
+        {% form 'customer', class: 'miranda-footer__newsletter' %}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <input type="email" name="contact[email]" placeholder="Votre adresse e-mail" aria-label="Votre adresse e-mail" required>
+          <button type="submit">S'inscrire</button>
+          {% if form.posted_successfully? %}
+            <p class="miranda-form-message">Merci, votre inscription est bien prise en compte.</p>
+          {% endif %}
+          {% if form.errors %}
+            <p class="miranda-form-message miranda-form-message--error">{{ form.errors | default_errors }}</p>
+          {% endif %}
+        {% endform %}
+
+        <div class="miranda-footer__badges" aria-label="Paiement sécurisé">
+          <span>Visa</span>
+          <span>Mastercard</span>
+          <span>PayPal</span>
+          <span>SSL</span>
+        </div>
       </div>
     </div>
-    
-    <div class="border-t border-ivory/15 pt-8 flex justify-between items-center text-xs text-ivory/50">
+
+    <div class="miranda-footer__bottom">
       <p>© {{ 'now' | date: '%Y' }} {{ section.settings.footer_copyright }}</p>
       <p>Fait avec soin à Paris</p>
     </div>
@@ -57,18 +70,19 @@
       "type": "text",
       "id": "footer_brand_description",
       "label": "Description de la marque",
-      "default": "Une maison française dédiée aux objets d'exception."
+      "default": "Une maison française dédiée aux objets d'exception : maison, beauté, accessoires, sport et électronique."
+    },
+    {
+      "type": "text",
+      "id": "newsletter_text",
+      "label": "Texte newsletter",
+      "default": "Nouveautés, éditos et invitations privées directement dans votre boîte mail."
     },
     {
       "type": "text",
       "id": "footer_copyright",
       "label": "Copyright",
       "default": "Le Choix de Miranda · Tous droits réservés"
-    },
-    {
-      "type": "url",
-      "id": "newsletter_url",
-      "label": "URL Newsletter"
     }
   ]
 }
