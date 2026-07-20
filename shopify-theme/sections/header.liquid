@@ -13,14 +13,14 @@
     </button>
 
     <!-- Logo -->
-    <a href="{{ shop.url }}" class="flex-shrink-0 font-serif text-lg md:text-xl font-light tracking-wide text-charcoal hover:text-gold transition-colors" title="{{ shop.name }}">
+    <a href="{{ routes.root_url }}" class="flex-shrink-0 font-serif text-lg md:text-xl font-light tracking-wide text-charcoal hover:text-gold transition-colors" title="{{ shop.name }}">
       <span class="hidden sm:inline">{{ shop.name }}</span>
       <span class="sm:hidden">Miranda</span>
     </a>
 
     <!-- Search bar - Desktop -->
     <div class="hidden md:flex flex-1 max-w-md mx-auto">
-      <form action="{{ shop.url }}/search" method="get" class="w-full">
+      <form action="{{ routes.search_url }}" method="get" class="w-full">
         <div class="relative">
           <input 
             type="text" 
@@ -48,14 +48,14 @@
       </button>
 
       <!-- Account -->
-      <a href="{{ shop.url }}/account" class="p-2 hover:text-gold transition-colors" title="Mon compte" aria-label="Mon compte">
+      <a href="{{ routes.account_url }}" class="p-2 hover:text-gold transition-colors" title="Mon compte" aria-label="Mon compte">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
         </svg>
       </a>
 
       <!-- Wishlist -->
-      <a href="{{ shop.url }}/pages/wishlist" class="p-2 hover:text-gold transition-colors relative" title="Mes favoris" aria-label="Mes favoris" data-wishlist-link>
+      <a href="{% if pages['wishlist'] %}{{ pages['wishlist'].url }}{% else %}/pages/wishlist{% endif %}" class="p-2 hover:text-gold transition-colors relative" title="Mes favoris" aria-label="Mes favoris" data-wishlist-link>
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
         </svg>
@@ -63,7 +63,7 @@
       </a>
 
       <!-- Cart -->
-      <a href="{{ shop.url }}/cart" class="p-2 hover:text-gold transition-colors relative" title="Panier" aria-label="Panier" data-cart-link>
+      <a href="{{ routes.cart_url }}" class="p-2 hover:text-gold transition-colors relative" title="Panier" aria-label="Panier" data-cart-link>
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
         </svg>
@@ -73,8 +73,8 @@
   </div>
 
   <!-- Mobile search bar -->
-  <div class="hidden md:hidden border-t border-border/50 px-4 py-3" data-mobile-search>
-    <form action="{{ shop.url }}/search" method="get">
+  <div class="hidden border-t border-border/50 px-4 py-3" data-mobile-search>
+    <form action="{{ routes.search_url }}" method="get">
       <div class="relative">
         <input 
           type="text" 
@@ -92,7 +92,7 @@
   </div>
 
   <!-- Mobile navigation menu -->
-  <nav class="hidden md:hidden border-t border-border/50 bg-ivory" data-mobile-menu>
+  <nav class="hidden border-t border-border/50 bg-ivory" data-mobile-menu>
     <div class="px-4 py-3 space-y-3">
       {% for link in linklists.main-menu.links %}
         <a href="{{ link.url }}" class="block text-sm uppercase tracking-widest text-charcoal hover:text-gold transition-colors">
@@ -100,8 +100,8 @@
         </a>
       {% endfor %}
       <div class="border-t border-border/50 pt-3 mt-3">
-        <a href="{{ shop.url }}/pages/contact" class="block text-xs uppercase tracking-widest text-charcoal hover:text-gold transition-colors mb-2">Contact</a>
-        <a href="{{ shop.url }}/policies/privacy-policy" class="block text-xs uppercase tracking-widest text-charcoal hover:text-gold transition-colors">Confidentialité</a>
+        <a href="{% if pages['contact'] %}{{ pages['contact'].url }}{% else %}/pages/contact{% endif %}" class="block text-xs uppercase tracking-widest text-charcoal hover:text-gold transition-colors mb-2">Contact</a>
+        <a href="{% if shop.privacy_policy != blank %}{{ shop.privacy_policy.url }}{% else %}/policies/privacy-policy{% endif %}" class="block text-xs uppercase tracking-widest text-charcoal hover:text-gold transition-colors">Confidentialité</a>
       </div>
     </div>
   </nav>
