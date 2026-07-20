@@ -1,14 +1,31 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
       "type": "hero",
       "settings": {
-        "title": "L'Élégance Redéfinie",
-        "subtitle": "Découvrez notre nouvelle collection",
-        "cta_text": "Découvrir",
+        "title": "L'Élégance dans chaque détail",
+        "subtitle": "Découvrez une sélection raffinée d'articles soigneusement choisis pour sublimer votre quotidien.",
+        "image": "shopify://shop_images/le_choix.png",
+        "cta_text": "Découvrir la collection",
         "cta_link": "/collections/all"
       }
+    },
+    "why_choose_us": {
+      "type": "why-choose-us",
+      "settings": {}
     }
   },
-  "order": ["hero"]
+  "order": [
+    "hero",
+    "why_choose_us"
+  ]
 }
