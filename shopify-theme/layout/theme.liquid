@@ -5,22 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>
 {% if template == 'index' %}
-Le choix de Miranda | Premium Online Store in France
+Le Choix de MN | Boutique en ligne – Mode, Maison, Beauté & Sport
+
 {% else %}
-{{ page_title }} | Le choix de Miranda
+{{ page_title }} | Le choix de MN
 {% endif %}
 </title>
-<meta name="description" content="{% if page_description != blank %}{{ page_description | escape }}{% else %}Découvrez une sélection de produits de qualité pour la maison, le sport, la beauté et le quotidien. Livraison rapide, paiement sécurisé et service client de confiance chez Le choix de Miranda.{% endif %}">
-
+<meta name="description" content="{% if page_description != blank %}{{ page_description | escape }}{% else %}Découvrez les meilleures offres en mode, maison, beauté, sport et accessoires. Livraison rapide partout en France, paiement sécurisé et qualité garantie chez Le Choix de MN.{% endif %}">
+<meta name="robots" content="index, follow">
   <meta property="og:type" content="website">
 <meta property="og:title" content="{{ page_title }}">
 <meta property="og:description" content="{{ page_description | escape }}">
 <meta property="og:url" content="{{ canonical_url }}">
 <meta property="og:site_name" content="{{ shop.name }}">
+{% if page_image %}
+<meta property="og:image" content="{{ page_image | image_url: width: 1200 }}">
+{% endif %}
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{{ page_title }}">
 <meta name="twitter:description" content="{{ page_description | escape }}">
+{% if page_image %}
+<meta name="twitter:image" content="{{ page_image | image_url: width: 1200 }}">
+{% endif %}
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   
   {{ 'theme.css' | asset_url | stylesheet_tag }}
