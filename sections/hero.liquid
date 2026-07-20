@@ -1,3 +1,7 @@
+{% liquid
+  assign featured_menu = linklists['main-menu']
+%}
+
 <section class="miranda-home-hero">
   <div class="miranda-shell">
     <div class="miranda-home-hero__frame">
@@ -24,9 +28,9 @@
       </div>
     {% endif %}
 
-    {% if linklists.main-menu.links.size > 0 %}
+    {% if featured_menu != blank and featured_menu.links.size > 0 %}
       <div class="miranda-category-strip" aria-label="Univers boutique">
-        {% for link in linklists.main-menu.links limit: 6 %}
+        {% for link in featured_menu.links limit: 6 %}
           <a href="{{ link.url }}" class="miranda-category-card">
             <span class="miranda-category-card__label">{{ link.title }}</span>
             <span class="miranda-category-card__cta">Explorer ↗</span>
