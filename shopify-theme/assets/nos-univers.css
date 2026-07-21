@@ -110,3 +110,20 @@
     margin-left: 0.5rem;
     font-size: 0.8em;
 }
+/* ✅ BON : Tout le CSS est dans le fichier externe */
+.nos-univers {
+  padding: clamp(2rem, 4vw, 4rem) 0;
+}
+
+.nos-univers__container {
+  width: min(1200px, 100% - 2rem);
+  margin-inline: auto;
+}
+
+/* ... tout votre CSS ... */
+
+/* Option 3 - Dégradés luxueux */
+.nos-univers__card:nth-child(1) .nos-univers__media {
+  background: linear-gradient(135deg, #D4A574 0%, #8B6B4A 100%);
+}
+/* ... etc ... */
