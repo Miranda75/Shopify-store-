@@ -126,4 +126,13 @@
 .nos-univers__card:nth-child(1) .nos-univers__media {
   background: linear-gradient(135deg, #D4A574 0%, #8B6B4A 100%);
 }
-/* ... etc ... */
+/* ... etc ... *//* Si l'image existe, le dégradé sera en dessous */
+.nos-univers__image {
+    position: relative;
+    z-index: 2;
+}
+
+.nos-univers__media {
+    background: linear-gradient(135deg, #D4A574 0%, #8B6B4A 100%);
+}
+
