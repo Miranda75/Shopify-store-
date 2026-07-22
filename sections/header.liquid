@@ -20,7 +20,28 @@
 
     <nav class="miranda-header__nav miranda-desktop-only" aria-label="Navigation principale">
       {% for link in menu_links limit: 3 %}
-        <a href="{{ link.url }}">{{ link.title }}</a>
+        {% if link.links.size > 0 %}
+          <div class="miranda-nav-item" data-dropdown-item>
+            <button class="miranda-nav-item__trigger" type="button" aria-expanded="false" aria-haspopup="true">
+              {{ link.title }}
+              <svg class="miranda-nav-item__chevron" viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"/>
+              </svg>
+            </button>
+            <div class="miranda-dropdown" role="menu" hidden>
+              {% for child in link.links %}
+                <a href="{{ child.url }}" class="miranda-dropdown__item" role="menuitem">
+                  <span class="miranda-dropdown__item-text">{{ child.title }}</span>
+                  <svg class="miranda-dropdown__item-arrow" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M9 18l6-6-6-6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"/>
+                  </svg>
+                </a>
+              {% endfor %}
+            </div>
+          </div>
+        {% else %}
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        {% endif %}
       {% endfor %}
     </nav>
 
@@ -34,7 +55,28 @@
 
     <nav class="miranda-header__nav miranda-desktop-only miranda-header__nav--right" aria-label="Navigation secondaire">
       {% for link in menu_links offset: 3 %}
-        <a href="{{ link.url }}">{{ link.title }}</a>
+        {% if link.links.size > 0 %}
+          <div class="miranda-nav-item" data-dropdown-item>
+            <button class="miranda-nav-item__trigger" type="button" aria-expanded="false" aria-haspopup="true">
+              {{ link.title }}
+              <svg class="miranda-nav-item__chevron" viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"/>
+              </svg>
+            </button>
+            <div class="miranda-dropdown" role="menu" hidden>
+              {% for child in link.links %}
+                <a href="{{ child.url }}" class="miranda-dropdown__item" role="menuitem">
+                  <span class="miranda-dropdown__item-text">{{ child.title }}</span>
+                  <svg class="miranda-dropdown__item-arrow" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M9 18l6-6-6-6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"/>
+                  </svg>
+                </a>
+              {% endfor %}
+            </div>
+          </div>
+        {% else %}
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        {% endif %}
       {% endfor %}
     </nav>
 
@@ -66,7 +108,23 @@
   <nav class="miranda-mobile-menu" id="miranda-mobile-menu" aria-label="Navigation mobile" hidden>
     <div class="miranda-shell miranda-mobile-menu__inner">
       {% for link in menu_links %}
-        <a href="{{ link.url }}">{{ link.title }}</a>
+        {% if link.links.size > 0 %}
+          <div class="miranda-mobile-nav-item" data-mobile-dropdown>
+            <button class="miranda-mobile-nav-item__trigger" type="button" aria-expanded="false">
+              {{ link.title }}
+              <svg class="miranda-nav-item__chevron" viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"/>
+              </svg>
+            </button>
+            <div class="miranda-mobile-dropdown" hidden>
+              {% for child in link.links %}
+                <a href="{{ child.url }}" class="miranda-mobile-dropdown__item">{{ child.title }}</a>
+              {% endfor %}
+            </div>
+          </div>
+        {% else %}
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        {% endif %}
       {% endfor %}
       <div class="miranda-mobile-menu__meta">
         <a href="{{ routes.account_url | default: '/account' }}">Mon compte</a>
