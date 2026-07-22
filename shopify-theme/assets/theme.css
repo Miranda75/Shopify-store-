@@ -354,8 +354,13 @@ svg {
 }
 
 .miranda-mobile-menu {
+  display: none;
   border-top: 1px solid rgba(229, 224, 216, 0.9);
   background: var(--color-ivory);
+}
+
+.miranda-mobile-menu.is-open {
+  display: block;
 }
 
 .miranda-mobile-menu__inner {
@@ -379,9 +384,13 @@ svg {
 }
 
 .miranda-mobile-dropdown__content {
-  display: grid;
+  display: none;
   gap: 0.2rem;
   padding: 0 0 0.85rem;
+}
+
+.miranda-mobile-dropdown__content.is-open {
+  display: grid;
 }
 
 .miranda-mobile-dropdown__item {
