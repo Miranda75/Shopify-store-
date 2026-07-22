@@ -26,6 +26,16 @@
     <nav class="miranda-header__nav miranda-desktop-only" aria-label="Navigation principale">
       {% for link in menu_links limit: 3 %}
         <a href="{{ link.url }}">{{ link.title }}</a>
+        <nav class="nav-links">
+            <a href="#">Accueil</a>
+            <a href="#">Nos univers</a>
+            <a href="#">Nouveautés</a>
+            <a href="#">Mode & Accessoires</a>
+            <a href="#">Sport & Fitness</a>
+            <a href="#">Maison & Décoration</a>
+            <a href="#">Beauté</a>
+            <a href="#">Électronique</a>
+        </nav>
       {% endfor %}
     </nav>
 
@@ -43,16 +53,7 @@
       {% endfor %}
     </nav>
 
-    <nav class="nav-links">
-            <a href="#">Accueil</a>
-            <a href="#">Nos univers</a>
-            <a href="#">Nouveautés</a>
-            <a href="#">Mode & Accessoires</a>
-            <a href="#">Sport & Fitness</a>
-            <a href="#">Maison & Décoration</a>
-            <a href="#">Beauté</a>
-            <a href="#">Électronique</a>
-        </nav>
+    
 
     <div class="miranda-header__actions">
       <a href="{{ routes.search_url }}" class="miranda-icon-button" aria-label="Rechercher">
