@@ -1,6 +1,109 @@
+{% doc %}
+  @prompt
+    Fix the "Nos Univers" dropdown menu so it properly closes/collapses when clicked again or when the user clicks outside of it. The dropdown currently stays open after being clicked. Add a proper toggle behavior with: a click handler that opens and closes the menu, an outside-click listener to dismiss it, and smooth open/close transition. Do not change the existing menu structure or styling., still the same
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-nos-univers-fix-{{ ai_gen_id }} {
+    display: none;
+  }
+{% endstyle %}
+
+<div class="ai-nos-univers-fix-{{ ai_gen_id }}" {{ block.shopify_attributes }}></div>
+
+<script>
+  (function() {
+    function initNosUniversDropdown() {
+      const dropdownSelectors = [
+        'details[data-disclosure]',
+        '.header__menu-item details',
+        'details:has(summary:contains("Nos Univers"))',
+        '.menu-drawer details',
+        'details.header__menu-item',
+        'details'
+      ];
+
+      let targetDropdown = null;
+
+      for (let selector of dropdownSelectors) {
+        const elements = document.querySelectorAll(selector);
+        elements.forEach(function(el) {
+          const summary = el.querySelector('summary');
+          if (summary && summary.textContent.trim().includes('Nos Univers')) {
+            targetDropdown = el;
+          }
+        });
+        if (targetDropdown) break;
+      }
+
+      if (!targetDropdown) {
+        const allDetails = document.querySelectorAll('details');
+        allDetails.forEach(function(details) {
+          const text = details.textContent || '';
+          if (text.includes('Nos Univers')) {
+            targetDropdown = details;
+          }
+        });
+      }
+
+      if (!targetDropdown) {
+        return;
+      }
+
+      const summary = targetDropdown.querySelector('summary');
+      if (!summary) return;
+
+      summary.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const isOpen = targetDropdown.hasAttribute('open');
+        
+        if (isOpen) {
+          targetDropdown.removeAttribute('open');
+        } else {
+          targetDropdown.setAttribute('open', '');
+        }
+      });
+
+      document.addEventListener('click', function(e) {
+        if (!targetDropdown.contains(e.target) && targetDropdown.hasAttribute('open')) {
+          targetDropdown.removeAttribute('open');
+        }
+      });
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && targetDropdown.hasAttribute('open')) {
+          targetDropdown.removeAttribute('open');
+        }
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initNosUniversDropdown);
+    } else {
+      initNosUniversDropdown();
+    }
+
+    document.addEventListener('shopify:section:load', initNosUniversDropdown);
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Nos Univers dropdown fix",
+  "tag": null,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "This block fixes the Nos Univers dropdown toggle behavior. It automatically finds and fixes the dropdown menu."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Nos Univers dropdown fix"
+    }
+  ]
+}
 {% endschema %}
