@@ -1,246 +1,156 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BRAVIA - Header Padding</title>
-    <style>
-        /* Reset styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+{% liquid
+  assign announcement_text = section.settings.announcement_text | default: '✨ Livraison offerte dès 70 € • 🔒 Paiement 100 % sécurisé • ↩ Retours gratuits sous 14 jours'
+  assign menu_handle = section.settings.menu | default: 'main-menu'
+  assign menu_links = linklists[menu_handle].links
+%}
 
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f4f4f4;
-        }
-
-        .app {
-            max-width: 1400px;
-            margin: 0 auto;
-            background: #ffffff;
-        }
-
-        /* ==============================================
-                THE HEADER - PADDING IS SET RIGHT HERE
-                ============================================== */
-        .site-header {
-            background: #0b0b0b;      /* Dark background */
-            color: #f0f0f0;
-            
-            /* ★ THIS IS THE HEADER PADDING YOU ASKED FOR ★ */
-            padding: 20px 48px;        
-            
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;          /* Wraps items on small screens */
-            gap: 15px 30px;
-            border-bottom: 1px solid #333;
-        }
-
-        /* Logo / Brand */
-        .brand {
-            font-size: 1.6rem;
-            font-weight: bold;
-            color: white;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        /* ==============================================
-                ★ TOP MENU ITEMS ★
-                NOTICE: "Nos univers" has been moved to the VERY END 
-                (just before the closing </nav> tag) to prove it moves!
-                ============================================== */
-        .main-nav {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px 25px;
-        }
-
-        .main-nav a {
-            color: #d0d0d0;
-            text-decoration: none;
-            font-size: 0.95rem;
-            padding-bottom: 4px;
-            border-bottom: 2px solid transparent;
-            transition: 0.2s;
-            white-space: nowrap;
-        }
-
-        .main-nav a:hover {
-            color: #ffffff;
-            border-bottom-color: #888;
-        }
-
-        /* Right side actions (Shopping & Gemini) */
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .header-actions a {
-            color: #d0d0d0;
-            text-decoration: none;
-            font-size: 0.95rem;
-            transition: 0.2s;
-        }
-
-        .header-actions a:hover {
-            color: #ffffff;
-        }
-
-        .gemini-badge {
-            background: #2a2a2a;
-            padding: 5px 15px;
-            border-radius: 30px;
-            font-size: 0.85rem;
-        }
-
-        /* Sidebar mockup */
-        .sidebar-panel {
-            background: #f3f4f6;
-            padding: 15px 48px;
-            border-bottom: 1px solid #ddd;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px 30px;
-            font-size: 0.9rem;
-            color: #333;
-        }
-        .sidebar-panel span {
-            background: white;
-            padding: 4px 15px;
-            border-radius: 20px;
-            border: 1px solid #ccc;
-        }
-
-        /* Main content mockup */
-        .main-content {
-            padding: 30px 48px;
-            min-height: 300px;
-        }
-
-        /* THIS IS THE SECOND "NOS UNIVERS" (in the gray content area, NOT the menu) */
-        .menu-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px 25px;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 15px;
-            margin-bottom: 25px;
-        }
-        .menu-grid span {
-            font-weight: bold;
-            color: #222;
-        }
-
-        .footer {
-            background: #f3f4f6;
-            padding: 20px 48px;
-            border-top: 1px solid #ddd;
-            display: flex;
-            justify-content: space-between;
-            color: #555;
-        }
-
-        /* Makes it look good on phones */
-        @media (max-width: 768px) {
-            .site-header {
-                padding: 15px 20px; /* Smaller padding for mobile */
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .main-nav {
-                justify-content: center;
-            }
-            .header-actions {
-                justify-content: center;
-            }
-            .sidebar-panel, .main-content, .footer {
-                padding-left: 20px;
-                padding-right: 20px;
-            }
-        }
-    </style>
-</head>
-<body>
-
-<div class="app">
-
-    <!-- ==========================================
-    HEADER STARTS HERE
-    ========================================== -->
-    <header class="site-header">
-
-        <!-- Left: Logo -->
-        <div class="brand">
-            ⬛ BRAVIA
-        </div>
-
-        <!-- ==========================================
-        ★★★ TOP MENU - "Nos univers" is now at the END ★★★
-        Look at the bottom of this list!
-        ========================================== -->
-        <nav class="main-nav">
-            <a href="#">Accueil</a>
-            <!-- Notice "Nos univers" is MISSING from here now -->
-            <a href="#">Nouveautés</a>
-            <a href="#">Mode & Accessoires</a>
-            <a href="#">Sport & Fitness</a>
-            <a href="#">Maison & Décoration</a>
-            <a href="#">Beauté</a>
-            <a href="#">Électronique</a>
-            <a href="#">Nos univers</a>   <!-- 👈 I MOVED IT DOWN HERE TO THE END! -->
-        </nav>
-
-        <!-- Right: Actions -->
-        <div class="header-actions">
-            <a href="#">🛒 Shopping</a>
-            <a href="#" class="gemini-badge">✨ Ask Gemini</a>
-        </div>
-
-    </header>
-
-    <!-- Sidebar mockup -->
-    <div class="sidebar-panel">
-        <span>⚙️ Theme settings</span>
-        <span>Theme</span>
-        <span>Custom CSS</span>
-        <span style="border-left: none; background: transparent; border: none; color: #777;">Add custom styles to your entire online store.</span>
-    </div>
-
-    <!-- Main content mockup -->
-    <main class="main-content">
-        <div class="menu-grid">
-            <span>ACCUEIL</span>
-            <span>NOS UNIVERS</span> <!-- THIS IS THE ONE IN THE CONTENT AREA, NOT THE TOP MENU -->
-            <span>NOUVEAUTÉS</span>
-            <span>MODE & ACCESSOIRES</span>
-            <span>SPORT & FITNESS</span>
-            <span>MAISON & DÉCORATION</span>
-            <span>BEAUTÉ</span>
-            <span>ÉLECTRONIQUE</span>
-        </div>
-        <p style="color: #555; font-size: 1.1rem;">
-            ✅ Look at the <strong>top dark menu</strong>. <br>
-            ✅ <strong>"Nos univers"</strong> is now the <strong>last</strong> item (after "Électronique"). <br>
-            ✅ If you want to move it back, just cut <code>&lt;a href="#"&gt;Nos univers&lt;/a&gt;</code> and paste it anywhere else inside the <strong>&lt;nav&gt;</strong> tag.
-        </p>
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <span>© BRAVIA</span>
-        <span>Activate Windo</span>
-    </footer>
-
+<div class="miranda-announcement-bar">
+  <div class="miranda-shell">
+    <p>{{ announcement_text }}</p>
+  </div>
 </div>
 
-</body>
-</html>
+<header class="miranda-header" data-header>
+  <div class="miranda-shell miranda-header__inner">
+    <button class="miranda-icon-button miranda-mobile-only" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="miranda-mobile-menu" data-mobile-menu-toggle>
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M3 6h18M3 12h18M3 18h18" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path>
+      </svg>
+    </button>
+
+    <nav class="miranda-header__nav miranda-desktop-only" aria-label="Navigation principale">
+      {% for link in menu_links limit: 3 %}
+        {% if link.links.size > 0 %}
+          <div class="miranda-nav-item" data-dropdown-item>
+            <button class="miranda-nav-item__trigger" type="button" aria-expanded="false" aria-haspopup="true">
+              <span>{{ link.title }}</span>
+              <svg class="miranda-nav-item__chevron" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path>
+              </svg>
+              <a href="#">Nos univers</a>
+            </button>
+            <div class="miranda-dropdown" role="menu" hidden>
+              {% for child in link.links %}
+                <a href="{{ child.url }}" class="miranda-dropdown__item" role="menuitem">
+                  <span class="miranda-dropdown__item-text">{{ child.title }}</span>
+                  <svg class="miranda-dropdown__item-arrow" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path>
+                  </svg>
+                </a>
+              {% endfor %}
+            </div>
+          </div>
+        {% else %}
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        {% endif %}
+      {% endfor %}
+    </nav>
+
+    <a href="{{ routes.root_url }}" class="miranda-brand" aria-label="{{ shop.name }}">
+      <span class="miranda-brand__mark">MN</span>
+      <span class="miranda-brand__text">
+        <span class="miranda-brand__name">Le Choix de MN</span>
+        <span class="miranda-brand__tag">Maison · Paris</span>
+      </span>
+    </a>
+
+    <nav class="miranda-header__nav miranda-desktop-only miranda-header__nav--right" aria-label="Navigation secondaire">
+      {% for link in menu_links offset: 3 %}
+        {% if link.links.size > 0 %}
+          <div class="miranda-nav-item" data-dropdown-item>
+            <button class="miranda-nav-item__trigger" type="button" aria-expanded="false" aria-haspopup="true">
+              <span>{{ link.title }}</span>
+              <svg class="miranda-nav-item__chevron" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path>
+              </svg>
+            </button>
+            <div class="miranda-dropdown" role="menu" hidden>
+              {% for child in link.links %}
+                <a href="{{ child.url }}" class="miranda-dropdown__item" role="menuitem">
+                  <span class="miranda-dropdown__item-text">{{ child.title }}</span>
+                  <svg class="miranda-dropdown__item-arrow" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path>
+                  </svg>
+                </a>
+              {% endfor %}
+            </div>
+          </div>
+        {% else %}
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        {% endif %}
+      {% endfor %}
+    </nav>
+
+    <div class="miranda-header__actions">
+      <a href="{{ routes.search_url }}" class="miranda-icon-button" aria-label="Rechercher">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.6"></circle>
+          <path d="M16 16l5 5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.6"></path>
+        </svg>
+      </a>
+      <a href="{{ routes.account_url | default: '/account' }}" class="miranda-icon-button" aria-label="Mon compte">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="8" r="3.5" fill="none" stroke="currentColor" stroke-width="1.6"></circle>
+          <path d="M5 20c1.8-3.8 11.2-3.8 14 0" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.6"></path>
+        </svg>
+      </a>
+      <a href="{{ routes.cart_url }}" class="miranda-icon-button miranda-cart-link" aria-label="Panier">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M7 9V7a5 5 0 0 1 10 0v2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path>
+          <path d="M5.5 9.5h13l-1.2 10H6.7z" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1.6"></path>
+        </svg>
+        {% if cart.item_count > 0 %}
+          <span class="miranda-badge">{{ cart.item_count }}</span>
+        {% endif %}
+      </a>
+    </div>
+  </div>
+
+  <nav class="miranda-mobile-menu" id="miranda-mobile-menu" aria-label="Navigation mobile" hidden>
+    <div class="miranda-shell miranda-mobile-menu__inner">
+      {% for link in menu_links %}
+        {% if link.links.size > 0 %}
+          <div class="miranda-mobile-dropdown" data-mobile-dropdown>
+            <button class="miranda-mobile-dropdown__trigger" type="button" aria-expanded="false">
+              <span>{{ link.title }}</span>
+              <svg class="miranda-mobile-dropdown__chevron" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path>
+              </svg>
+            </button>
+            <div class="miranda-mobile-dropdown__content" hidden>
+              {% for child in link.links %}
+                <a href="{{ child.url }}" class="miranda-mobile-dropdown__item">{{ child.title }}</a>
+              {% endfor %}
+            </div>
+          </div>
+        {% else %}
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        {% endif %}
+      {% endfor %}
+      <div class="miranda-mobile-menu__meta">
+        <a href="{{ routes.account_url | default: '/account' }}">Mon compte</a>
+        <a href="/pages/contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "Texte annonce",
+      "default": "✨ Livraison offerte dès 70 € • 🔒 Paiement 100 % sécurisé • ↩ Retours gratuits sous 14 jours"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu"
+    }
+  ]
+}
+{% endschema %}
