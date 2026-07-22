@@ -14,7 +14,12 @@
     });
   }
 
+  var dropdownsInitialised = false;
+
   function setupDropdowns() {
+    if (dropdownsInitialised) return;
+    dropdownsInitialised = true;
+
     var items = document.querySelectorAll('[data-dropdown-item]');
 
     function closeAll() {
