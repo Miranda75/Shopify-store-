@@ -1,9 +1,18 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
       "type": "hero",
       "settings": {
-        "image": "shopify://shop_images/C56A7C67-0FE9-41BB-9393-26548B048F06_2209a887-aa3f-489c-a80c-1b1322d59167.jpg",
+        "image": "shopify://shop_images/3new_53ce51ad-17c7-446d-babe-ea5b10c43467.png",
         "image_alt": "Visuel éditorial Le Choix de Miranda",
         "subtitle": "Sélectionné pour vous",
         "title": "Le choix qui vous rassemble",
@@ -13,18 +22,61 @@
     },
     "nos_univers": {
       "type": "nos-univers",
+      "blocks": {
+        "maison": {
+          "type": "category_card",
+          "settings": {
+            "title": "🏠 Maison",
+            "collection": ""
+          }
+        },
+        "beaute": {
+          "type": "category_card",
+          "settings": {
+            "title": "💄 Beauté",
+            "collection": ""
+          }
+        },
+        "accessoires": {
+          "type": "category_card",
+          "settings": {
+            "title": "⌚ Accessoires",
+            "collection": ""
+          }
+        },
+        "sport": {
+          "type": "category_card",
+          "settings": {
+            "title": "🏃 Sport",
+            "collection": ""
+          }
+        },
+        "electronique": {
+          "type": "category_card",
+          "settings": {
+            "title": "💻 Électronique",
+            "collection": ""
+          }
+        },
+        "nouveautes": {
+          "type": "category_card",
+          "settings": {
+            "title": "✨ Nouveautés",
+            "collection": ""
+          }
+        }
+      },
+      "block_order": [
+        "maison",
+        "beaute",
+        "accessoires",
+        "sport",
+        "electronique",
+        "nouveautes"
+      ],
       "settings": {
         "heading": "Nos Univers"
-      },
-      "blocks": {
-        "maison": { "type": "category_card", "settings": { "title": "🏠 Maison" } },
-        "beaute": { "type": "category_card", "settings": { "title": "💄 Beauté" } },
-        "accessoires": { "type": "category_card", "settings": { "title": "⌚ Accessoires" } },
-        "sport": { "type": "category_card", "settings": { "title": "🏃 Sport" } },
-        "electronique": { "type": "category_card", "settings": { "title": "💻 Électronique" } },
-        "nouveautes": { "type": "category_card", "settings": { "title": "✨ Nouveautés" } }
-      },
-      "block_order": ["maison", "beaute", "accessoires", "sport", "electronique", "nouveautes"]
+      }
     },
     "why_choose_us": {
       "type": "why-choose-us",
