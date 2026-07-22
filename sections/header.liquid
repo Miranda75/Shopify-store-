@@ -28,7 +28,7 @@
                 <path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path>
               </svg>
             </button>
-            <div class="miranda-dropdown" role="menu" hidden>
+            <div class="miranda-dropdown" role="menu">
               {% for child in link.links %}
                 <a href="{{ child.url }}" class="miranda-dropdown__item" role="menuitem">
                   <span class="miranda-dropdown__item-text">{{ child.title }}</span>
@@ -63,7 +63,7 @@
                 <path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path>
               </svg>
             </button>
-            <div class="miranda-dropdown" role="menu" hidden>
+            <div class="miranda-dropdown" role="menu">
               {% for child in link.links %}
                 <a href="{{ child.url }}" class="miranda-dropdown__item" role="menuitem">
                   <span class="miranda-dropdown__item-text">{{ child.title }}</span>
