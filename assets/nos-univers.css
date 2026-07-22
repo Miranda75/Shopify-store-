@@ -1,91 +1,196 @@
 /* ============================================
-   STYLES LUXUEUX POUR NOS UNIVERS
+   NOS UNIVERS - SECTION STYLES
    ============================================ */
 
-/* Dégradés par carte */
+.nos-univers {
+  padding: clamp(2rem, 4vw, 4rem) 0;
+}
+
+.nos-univers__container {
+  width: min(1200px, 100% - 2rem);
+  margin-inline: auto;
+}
+
+.nos-univers__heading {
+  margin: 0 0 clamp(1rem, 2.2vw, 1.75rem);
+  text-align: center;
+}
+
+.nos-univers__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(0.875rem, 1.8vw, 1.25rem);
+}
+
+@media (min-width: 750px) {
+  .nos-univers__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 990px) {
+  .nos-univers__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.nos-univers__card {
+  position: relative;
+  display: block;
+  border-radius: 24px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  background: rgba(0, 0, 0, 0.03);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.06),
+    0 8px 24px rgba(0, 0, 0, 0.08);
+  transform: translateY(0) scale(1);
+  transition:
+    transform 320ms cubic-bezier(.22, .61, .36, 1),
+    box-shadow 320ms cubic-bezier(.22, .61, .36, 1);
+  will-change: transform, box-shadow;
+}
+
+.nos-univers__media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  width: 100%;
+}
+
+/* Per-card gradient backgrounds */
 .nos-univers__card:nth-child(1) .nos-univers__media {
-    background: linear-gradient(135deg, #D4A574 0%, #8B6B4A 100%);
+  background: linear-gradient(135deg, #D4A574 0%, #8B6B4A 100%);
 }
 
 .nos-univers__card:nth-child(2) .nos-univers__media {
-    background: linear-gradient(135deg, #F5A0B0 0%, #C76B8A 100%);
+  background: linear-gradient(135deg, #F5A0B0 0%, #C76B8A 100%);
 }
 
 .nos-univers__card:nth-child(3) .nos-univers__media {
-    background: linear-gradient(135deg, #C9A96E 0%, #8B7A4A 100%);
+  background: linear-gradient(135deg, #C9A96E 0%, #8B7A4A 100%);
 }
 
 .nos-univers__card:nth-child(4) .nos-univers__media {
-    background: linear-gradient(135deg, #6BB5C9 0%, #3A7A8A 100%);
+  background: linear-gradient(135deg, #6BB5C9 0%, #3A7A8A 100%);
 }
 
 .nos-univers__card:nth-child(5) .nos-univers__media {
-    background: linear-gradient(135deg, #7A8BB5 0%, #4A5A7A 100%);
+  background: linear-gradient(135deg, #7A8BB5 0%, #4A5A7A 100%);
 }
 
 .nos-univers__card:nth-child(6) .nos-univers__media {
-    background: linear-gradient(135deg, #C9A96E 0%, #D4A574 100%);
+  background: linear-gradient(135deg, #C9A96E 0%, #D4A574 100%);
 }
 
-/* Titre de la carte */
-.nos-univers__title {
-    font-size: clamp(1.5rem, 2.5vw, 2.2rem);
-    font-weight: 300;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    font-family: 'Georgia', 'Times New Roman', serif;
+.nos-univers__image,
+.nos-univers__placeholder {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
-/* Ligne dorée sous le titre */
-.nos-univers__title::before {
-    content: '';
-    display: block;
-    width: 60px;
-    height: 3px;
-    background: #C9A96E;
-    margin-bottom: 0.5rem;
-    border-radius: 2px;
-}
-
-/* Effet de brillance sur les cartes */
-.nos-univers__media::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-        135deg,
-        rgba(255, 255, 255, 0.1) 0%,
-        transparent 50%,
-        rgba(255, 255, 255, 0.05) 100%
-    );
-    pointer-events: none;
-    z-index: 1;
-}
-
-/* Hover */
-.nos-univers__card:hover {
-    transform: translateY(-8px) scale(1.01);
-    box-shadow:
-        0 8px 12px rgba(0,0,0,0.04),
-        0 24px 60px rgba(0,0,0,0.15);
-}
-
-/* Overlay */
-.nos-univers__card:hover .nos-univers__media::after {
-    opacity: 0.8;
-}
-
-/* Style spécial pour la carte "Nouveautés" */
-.nos-univers__card:nth-child(6) .nos-univers__title::after {
-    content: '✨';
-    display: inline-block;
-    margin-left: 0.5rem;
-    font-size: 0.8em;
-}
-
-/* Image positionnée au-dessus du dégradé */
 .nos-univers__image {
-    position: relative;
-    z-index: 2;
+  position: relative;
+  z-index: 2;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.001);
+  transition:
+    transform 500ms cubic-bezier(.22, .61, .36, 1),
+    filter 320ms ease;
+  will-change: transform, filter;
+}
+
+.nos-univers__placeholder {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.02));
+}
+
+/* Shine effect */
+.nos-univers__media::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Bottom gradient overlay */
+.nos-univers__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.45) 8%,
+    rgba(0, 0, 0, 0.14) 55%,
+    rgba(0, 0, 0, 0.03) 100%
+  );
+  pointer-events: none;
+  transition: opacity 260ms ease;
+}
+
+.nos-univers__title {
+  position: absolute;
+  inset-inline-start: 1rem;
+  inset-block-end: 1rem;
+  z-index: 3;
+  margin: 0;
+  color: #fff;
+  font-size: clamp(1rem, 1.4vw, 1.125rem);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: 0.05em;
+  text-wrap: balance;
+  text-transform: uppercase;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+}
+
+/* Decorative gold line above title */
+.nos-univers__title::before {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 2px;
+  background: rgba(201, 162, 39, 0.85);
+  margin-bottom: 0.4rem;
+  border-radius: 2px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .nos-univers__card:hover,
+  .nos-univers__card:focus-visible {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow:
+      0 2px 6px rgba(0, 0, 0, 0.08),
+      0 14px 34px rgba(0, 0, 0, 0.14);
+  }
+
+  .nos-univers__card:hover .nos-univers__image,
+  .nos-univers__card:focus-visible .nos-univers__image {
+    transform: scale(1.06);
+    filter: saturate(1.04) contrast(1.02);
+  }
+
+  .nos-univers__card:hover .nos-univers__media::after {
+    opacity: 0.8;
+  }
+}
+
+.nos-univers__card:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.95);
+  outline-offset: -4px;
+}
+
+.nos-univers__empty {
+  margin: 0;
+  text-align: center;
+  opacity: 0.7;
 }
 

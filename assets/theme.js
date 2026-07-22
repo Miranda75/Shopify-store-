@@ -81,7 +81,7 @@
     toggle.addEventListener('click', function () {
       var isOpen = toggle.getAttribute('aria-expanded') === 'true';
       toggle.setAttribute('aria-expanded', String(!isOpen));
-      menu.hidden = isOpen;
+      menu.classList.toggle('is-open', !isOpen);
     });
   }
 
@@ -100,7 +100,7 @@
       trigger.addEventListener('click', function () {
         var isOpen = trigger.getAttribute('aria-expanded') === 'true';
         trigger.setAttribute('aria-expanded', String(!isOpen));
-        content.hidden = isOpen;
+        content.classList.toggle('is-open', !isOpen);
       });
     });
   }
