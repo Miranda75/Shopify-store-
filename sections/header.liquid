@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BRAVIA - Header Padding</title>
+    <title>BRAVIA</title>
     <style>
+        /* إعادة تعيين الهوامش */
         * {
             margin: 0;
             padding: 0;
@@ -12,85 +13,92 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
+            font-family: Arial, Helvetica, sans-serif;
             background: #f4f4f4;
         }
 
-        .app {
+        .container {
             max-width: 1400px;
             margin: 0 auto;
             background: #ffffff;
+            min-height: 100vh;
         }
 
-        /* ==================================================
-           ★★★ هذا هو الـ HEADER (المسافات الداخلية) ★★★
-           غير الأرقام هنا (20px 48px) كما تريد
-           ================================================== */
-        .site-header {
-            background: #0b0b0b;
-            color: #f0f0f0;
-            padding: 20px 48px;   /* ← غيّر هذه الأرقام */
+        /* =============================================
+           ★★★ الـ HEADER مع الـ PADDING المطلوب ★★★
+           padding: 20px 48px; 
+           (20px أعلى وأسفل، 48px يمين ويسار)
+           ============================================= */
+        .header {
+            background: #0b0b0b;      /* خلفية سوداء */
+            color: #ffffff;
+            
+            /* هذا هو الـ Padding المطلوب بالضبط */
+            padding: 20px 48px;       
+            
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
-            gap: 15px 30px;
+            gap: 10px 20px;
             border-bottom: 1px solid #333;
         }
 
-        .brand {
+        /* الشعار */
+        .logo {
             font-size: 1.6rem;
             font-weight: bold;
             color: white;
+            letter-spacing: 1px;
         }
 
-        /* ==================================================
-           ★★★ قائمة الـ Menu - حرك "Nos univers" هنا ★★★
-           ================================================== */
-        .main-nav {
+        /* قائمة الروابط */
+        .nav-links {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px 25px;
+            gap: 12px 22px;
         }
 
-        .main-nav a {
+        .nav-links a {
             color: #d0d0d0;
             text-decoration: none;
             font-size: 0.95rem;
-            padding-bottom: 4px;
-            border-bottom: 2px solid transparent;
             transition: 0.2s;
         }
 
-        .main-nav a:hover {
+        .nav-links a:hover {
             color: #ffffff;
-            border-bottom-color: #888;
         }
 
-        .header-actions {
+        /* الأزرار اليمنى (Shopping و Gemini) */
+        .actions {
             display: flex;
             align-items: center;
             gap: 15px;
+            flex-wrap: wrap;
         }
 
-        .header-actions a {
+        .actions a {
             color: #d0d0d0;
             text-decoration: none;
             font-size: 0.95rem;
+            transition: 0.2s;
         }
 
-        .header-actions a:hover {
+        .actions a:hover {
             color: #ffffff;
         }
 
-        .gemini-badge {
+        .gemini {
             background: #2a2a2a;
-            padding: 5px 15px;
+            padding: 5px 16px;
             border-radius: 30px;
         }
 
-        /* باقي التنسيقات */
-        .sidebar-panel {
+        /* =============================================
+           باقي أجزاء الصفحة (كما في الصورة)
+           ============================================= */
+        .sidebar {
             background: #f3f4f6;
             padding: 15px 48px;
             border-bottom: 1px solid #ddd;
@@ -98,8 +106,10 @@
             flex-wrap: wrap;
             gap: 10px 30px;
             font-size: 0.9rem;
+            color: #333;
         }
-        .sidebar-panel span {
+
+        .sidebar span {
             background: white;
             padding: 4px 15px;
             border-radius: 20px;
@@ -107,8 +117,13 @@
         }
 
         .main-content {
-            padding: 30px 48px;
+            padding: 40px 48px;
             min-height: 300px;
+        }
+
+        .main-content h2 {
+            font-weight: normal;
+            margin-bottom: 15px;
         }
 
         .footer {
@@ -117,22 +132,26 @@
             border-top: 1px solid #ddd;
             display: flex;
             justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
             color: #555;
         }
 
+        /* جعل التصميم مناسباً للجوال */
         @media (max-width: 768px) {
-            .site-header {
-                padding: 15px 20px;
+            .header {
+                padding: 15px 20px; /* مسافات أقل للجوال */
                 flex-direction: column;
                 align-items: stretch;
+                text-align: center;
             }
-            .main-nav {
+            .nav-links {
                 justify-content: center;
             }
-            .header-actions {
+            .actions {
                 justify-content: center;
             }
-            .sidebar-panel, .main-content, .footer {
+            .sidebar, .main-content, .footer {
                 padding-left: 20px;
                 padding-right: 20px;
             }
@@ -141,20 +160,19 @@
 </head>
 <body>
 
-<div class="app">
+<div class="container">
 
-    <header class="site-header">
+    <!-- ==========================================
+    الهيدر (BRAVIA + القائمة + الأزرار)
+    ========================================== -->
+    <header class="header">
 
-        <div class="brand">⬛ BRAVIA</div>
+        <div class="logo">BRAVIA</div>
 
-        <!-- ==========================================
-        ★★★ القائمة الرئيسية ★★★
-        لتحريك "Nos univers"، ابحث عنه بالأسفل
-        وانقله (قص ولصق) إلى أي مكان بين الروابط الأخرى
-        ========================================== -->
-        <nav class="main-nav">
+        <!-- القائمة (Accueil, Nos univers, Nouveautés, ...) -->
+        <nav class="nav-links">
             <a href="#">Accueil</a>
-            <a href="#">Nos univers</a>   <!-- ← انقل هذا السطر إلى أي مكان -->
+            <a href="#">Nos univers</a>
             <a href="#">Nouveautés</a>
             <a href="#">Mode & Accessoires</a>
             <a href="#">Sport & Fitness</a>
@@ -163,34 +181,46 @@
             <a href="#">Électronique</a>
         </nav>
 
-        <div class="header-actions">
+        <!-- الأزرار اليمنى -->
+        <div class="actions">
             <a href="#">🛒 Shopping</a>
-            <a href="#" class="gemini-badge">✨ Ask Gemini</a>
+            <a href="#" class="gemini">✨ Ask Gemini</a>
         </div>
 
     </header>
 
-    <div class="sidebar-panel">
+    <!-- ==========================================
+    الشريط الجانبي (Sidebar)
+    ========================================== -->
+    <div class="sidebar">
         <span>⚙️ Theme settings</span>
         <span>Theme</span>
         <span>Custom CSS</span>
         <span style="border: none; background: transparent; color: #777;">Add custom styles to your entire online store.</span>
     </div>
 
+    <!-- ==========================================
+    المحتوى الرئيسي
+    ========================================== -->
     <main class="main-content">
-        <h2 style="margin-bottom: 15px;">✅ Header Padding يعمل</h2>
-        <p style="color: #555; line-height: 2; font-size: 1.1rem;">
-            <strong>لتغيير المسافات (Padding):</strong> غيّر الرقمين <code style="background:#eee;padding:2px 8px;">20px 48px</code> الموجودين في الـ CSS.<br>
-            <strong>لتحريك "Nos univers":</strong> ابحث عنه في القائمة أعلاه، وانقله إلى مكان آخر.
+        <h2>✅ Header Padding يعمل تماماً</h2>
+        <p style="color: #555; line-height: 2; font-size: 1.05rem;">
+            <strong>Padding العلوي والسفلي:</strong> 20px <br>
+            <strong>Padding الأيمن والأيسر:</strong> 48px <br><br>
+            لتغيير المسافات، ابحث عن <code style="background:#eee;padding:2px 8px;">padding: 20px 48px;</code> 
+            داخل الـ CSS غيّر الأرقام كما تحب.
         </p>
         <p style="color: #aaa; margin-top: 20px; font-size: 0.9rem;">
-            💡 نصيحة: بعد أي تعديل، اضغط <kbd>Ctrl+Shift+R</kbd> عشان تفرض التحديث.
+            💡 ملاحظة: الأرقام مطبقة بالضبط كما في صورتك.
         </p>
     </main>
 
+    <!-- ==========================================
+    الفوتر (© BRAVIA  -  Activate Window)
+    ========================================== -->
     <footer class="footer">
         <span>© BRAVIA</span>
-        <span>Activate Windo</span>
+        <span>Activate Window</span>
     </footer>
 
 </div>
