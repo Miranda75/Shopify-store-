@@ -1,0 +1,228 @@
+{% doc %}
+  @prompt
+    Fix the "Nos Univers" dropdown menu so it properly closes/collapses when clicked again or when the user clicks outside of it. The dropdown currently stays open after being clicked. Add a proper toggle behavior with: a click handler that opens and closes the menu, an outside-click listener to dismiss it, and smooth open/close transition. Do not change the existing menu structure or styling.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-dropdown-fix-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+  }
+
+  .ai-dropdown-toggle-{{ ai_gen_id }} {
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .ai-dropdown-content-{{ ai_gen_id }} {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height {{ block.settings.transition_duration }}s ease, opacity {{ block.settings.transition_duration }}s ease;
+  }
+
+  .ai-dropdown-content-{{ ai_gen_id }}.active {
+    max-height: {{ block.settings.max_height }}px;
+    opacity: 1;
+  }
+
+  .ai-dropdown-icon-{{ ai_gen_id }} {
+    display: inline-block;
+    transition: transform {{ block.settings.transition_duration }}s ease;
+  }
+
+  .ai-dropdown-icon-{{ ai_gen_id }}.rotated {
+    transform: rotate(180deg);
+  }
+{% endstyle %}
+
+<dropdown-menu-{{ ai_gen_id }}
+  class="ai-dropdown-fix-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  <div
+    class="ai-dropdown-toggle-{{ ai_gen_id }}"
+    role="button"
+    aria-expanded="false"
+    aria-controls="dropdown-content-{{ ai_gen_id }}"
+    tabindex="0"
+  >
+    <span>{{ block.settings.toggle_text }}</span>
+    {% if block.settings.show_icon %}
+      <span class="ai-dropdown-icon-{{ ai_gen_id }}" aria-hidden="true">
+        {{ block.settings.icon_symbol }}
+      </span>
+    {% endif %}
+  </div>
+
+  <div
+    id="dropdown-content-{{ ai_gen_id }}"
+    class="ai-dropdown-content-{{ ai_gen_id }}"
+    role="region"
+  >
+    {{ block.settings.dropdown_content }}
+  </div>
+</dropdown-menu-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class DropdownMenu{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.toggle = null;
+        this.content = null;
+        this.icon = null;
+        this.isOpen = false;
+      }
+
+      connectedCallback() {
+        this.toggle = this.querySelector('.ai-dropdown-toggle-{{ ai_gen_id }}');
+        this.content = this.querySelector('.ai-dropdown-content-{{ ai_gen_id }}');
+        this.icon = this.querySelector('.ai-dropdown-icon-{{ ai_gen_id }}');
+
+        if (!this.toggle || !this.content) return;
+
+        this.toggle.addEventListener('click', this.handleToggleClick.bind(this));
+        this.toggle.addEventListener('keydown', this.handleKeyDown.bind(this));
+        document.addEventListener('click', this.handleOutsideClick.bind(this));
+      }
+
+      disconnectedCallback() {
+        if (this.toggle) {
+          this.toggle.removeEventListener('click', this.handleToggleClick.bind(this));
+          this.toggle.removeEventListener('keydown', this.handleKeyDown.bind(this));
+        }
+        document.removeEventListener('click', this.handleOutsideClick.bind(this));
+      }
+
+      handleToggleClick(event) {
+        event.stopPropagation();
+        this.toggleDropdown();
+      }
+
+      handleKeyDown(event) {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          this.toggleDropdown();
+        } else if (event.key === 'Escape' && this.isOpen) {
+          this.closeDropdown();
+        }
+      }
+
+      handleOutsideClick(event) {
+        if (this.isOpen && !this.contains(event.target)) {
+          this.closeDropdown();
+        }
+      }
+
+      toggleDropdown() {
+        if (this.isOpen) {
+          this.closeDropdown();
+        } else {
+          this.openDropdown();
+        }
+      }
+
+      openDropdown() {
+        this.isOpen = true;
+        this.content.classList.add('active');
+        this.toggle.setAttribute('aria-expanded', 'true');
+        if (this.icon) {
+          this.icon.classList.add('rotated');
+        }
+      }
+
+      closeDropdown() {
+        this.isOpen = false;
+        this.content.classList.remove('active');
+        this.toggle.setAttribute('aria-expanded', 'false');
+        if (this.icon) {
+          this.icon.classList.remove('rotated');
+        }
+      }
+    }
+
+    customElements.define('dropdown-menu-{{ ai_gen_id }}', DropdownMenu{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Dropdown menu fix",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "toggle_text",
+      "label": "Toggle text",
+      "default": "Nos Univers"
+    },
+    {
+      "type": "richtext",
+      "id": "dropdown_content",
+      "label": "Dropdown content",
+      "default": "<p>Add your menu items here</p>"
+    },
+    {
+      "type": "header",
+      "content": "Icon"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_icon",
+      "label": "Show dropdown icon",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "icon_symbol",
+      "label": "Icon symbol",
+      "default": "▼"
+    },
+    {
+      "type": "header",
+      "content": "Behavior"
+    },
+    {
+      "type": "range",
+      "id": "transition_duration",
+      "label": "Transition duration",
+      "min": 0,
+      "max": 1,
+      "step": 0.1,
+      "unit": "s",
+      "default": 0.3
+    },
+    {
+      "type": "range",
+      "id": "max_height",
+      "label": "Max height",
+      "min": 100,
+      "max": 1000,
+      "step": 50,
+      "unit": "px",
+      "default": 500
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    }
+  ],
+  "presets": [
+    {
+      "name": "Dropdown menu fix"
+    }
+  ]
+}
+{% endschema %}

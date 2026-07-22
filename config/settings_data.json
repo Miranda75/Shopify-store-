@@ -9,6 +9,24 @@
  */
 {
   "current": {
-    "store_name": "Le Choix de Miranda"
+    "store_name": "Le Choix de Miranda",
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {
+          "announcement_text": "✨ Livraison offerte dès 70 € • 🔒 Paiement 100 % sécurisé • ↩ Retours gratuits sous 14 jours",
+          "menu": "main-menu"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "footer_brand_description": "Une maison française dédiée aux objets d'exception : maison, beauté, accessoires, sport et électronique.",
+          "newsletter_text": "Nouveautés, éditos et invitations privées directement dans votre boîte mail.",
+          "footer_copyright": "Le Choix de Miranda · Tous droits réservés"
+        }
+      }
+    },
+    "content_for_index": []
   }
 }

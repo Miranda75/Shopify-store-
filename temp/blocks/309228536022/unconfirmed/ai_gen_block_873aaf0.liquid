@@ -1,0 +1,745 @@
+{% doc %}
+  @prompt
+    Add a "Nos Univers" block inside the existing Header section. It should display a row of brand universe categories (e.g. Prêt-à-porter, Accessoires, Maison) with customizable images, titles, and links for each universe. The design should match a luxury fashion brand aesthetic with clean typography, gold accents, and minimal elegant styling. Each universe item should be configurable with an image, a label/title, and a URL link. The block should appear as a sub-navigation or showcase strip within or just below the header.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-nos-univers-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    background-color: {{ block.settings.background_color }};
+    padding: {{ block.settings.vertical_padding }}px 0;
+    border-top: 1px solid {{ block.settings.border_color }};
+    border-bottom: 1px solid {{ block.settings.border_color }};
+  }
+
+  .ai-nos-univers-container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.max_width }}px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .ai-nos-univers-title-{{ ai_gen_id }} {
+    text-align: center;
+    font-size: {{ block.settings.title_size }}px;
+    font-weight: {{ block.settings.title_weight }};
+    color: {{ block.settings.title_color }};
+    margin: 0 0 {{ block.settings.title_spacing }}px 0;
+    letter-spacing: {{ block.settings.title_letter_spacing }}px;
+    text-transform: {{ block.settings.title_transform }};
+  }
+
+  .ai-nos-univers-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat({{ block.settings.columns_desktop }}, 1fr);
+    gap: {{ block.settings.gap }}px;
+    align-items: start;
+  }
+
+  .ai-nos-univers-item-{{ ai_gen_id }} {
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+
+  .ai-nos-univers-item-{{ ai_gen_id }}:hover {
+    transform: translateY(-4px);
+    opacity: 0.9;
+  }
+
+  .ai-nos-univers-image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    aspect-ratio: {{ block.settings.image_aspect_ratio }};
+    overflow: hidden;
+    border-radius: {{ block.settings.image_border_radius }}px;
+    margin-bottom: {{ block.settings.label_spacing }}px;
+    background-color: #f4f4f4;
+  }
+
+  .ai-nos-univers-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  .ai-nos-univers-item-{{ ai_gen_id }}:hover .ai-nos-univers-image-{{ ai_gen_id }} {
+    transform: scale(1.05);
+  }
+
+  .ai-nos-univers-image-wrapper-{{ ai_gen_id }} svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-nos-univers-overlay-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, {{ block.settings.overlay_opacity }}) 100%);
+    pointer-events: none;
+  }
+
+  .ai-nos-univers-label-{{ ai_gen_id }} {
+    font-size: {{ block.settings.label_size }}px;
+    font-weight: {{ block.settings.label_weight }};
+    color: {{ block.settings.label_color }};
+    letter-spacing: {{ block.settings.label_letter_spacing }}px;
+    text-transform: {{ block.settings.label_transform }};
+    margin: 0;
+    transition: color 0.3s ease;
+  }
+
+  .ai-nos-univers-item-{{ ai_gen_id }}:hover .ai-nos-univers-label-{{ ai_gen_id }} {
+    color: {{ block.settings.label_hover_color }};
+  }
+
+  .ai-nos-univers-accent-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.accent_width }}px;
+    height: {{ block.settings.accent_height }}px;
+    background-color: {{ block.settings.accent_color }};
+    margin: {{ block.settings.accent_spacing }}px auto 0;
+    transition: width 0.3s ease;
+  }
+
+  .ai-nos-univers-item-{{ ai_gen_id }}:hover .ai-nos-univers-accent-{{ ai_gen_id }} {
+    width: {{ block.settings.accent_hover_width }}px;
+  }
+
+  .ai-nos-univers-empty-state-{{ ai_gen_id }} {
+    text-align: center;
+    padding: 40px 20px;
+    color: #999;
+    font-size: 14px;
+  }
+
+  @media screen and (max-width: 989px) {
+    .ai-nos-univers-grid-{{ ai_gen_id }} {
+      grid-template-columns: repeat({{ block.settings.columns_tablet }}, 1fr);
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-nos-univers-grid-{{ ai_gen_id }} {
+      grid-template-columns: repeat({{ block.settings.columns_mobile }}, 1fr);
+      gap: {{ block.settings.gap_mobile }}px;
+    }
+
+    .ai-nos-univers-title-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.title_size }}px * 0.85);
+    }
+
+    .ai-nos-univers-label-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.label_size }}px * 0.9);
+    }
+
+    .ai-nos-univers-{{ ai_gen_id }} {
+      padding: {{ block.settings.vertical_padding | times: 0.7 }}px 0;
+    }
+  }
+{% endstyle %}
+
+<nos-univers-{{ ai_gen_id }} class="ai-nos-univers-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-nos-univers-container-{{ ai_gen_id }}">
+    {% if block.settings.section_title != blank %}
+      <h2 class="ai-nos-univers-title-{{ ai_gen_id }}">{{ block.settings.section_title }}</h2>
+    {% endif %}
+
+    {% liquid
+      assign has_content = false
+      for i in (1..6)
+        assign universe_enabled_key = 'universe_' | append: i | append: '_enabled'
+        if block.settings[universe_enabled_key]
+          assign has_content = true
+          break
+        endif
+      endfor
+    %}
+
+    {% if has_content %}
+      <div class="ai-nos-univers-grid-{{ ai_gen_id }}">
+        {% for i in (1..6) %}
+          {% liquid
+            assign universe_enabled_key = 'universe_' | append: i | append: '_enabled'
+            assign universe_image_key = 'universe_' | append: i | append: '_image'
+            assign universe_label_key = 'universe_' | append: i | append: '_label'
+            assign universe_url_key = 'universe_' | append: i | append: '_url'
+
+            assign universe_enabled = block.settings[universe_enabled_key]
+            assign universe_image = block.settings[universe_image_key]
+            assign universe_label = block.settings[universe_label_key]
+            assign universe_url = block.settings[universe_url_key]
+          %}
+
+          {% if universe_enabled %}
+            <a
+              href="{% if universe_url != blank %}{{ universe_url }}{% else %}#{% endif %}"
+              class="ai-nos-univers-item-{{ ai_gen_id }}"
+              {% if universe_label != blank %}aria-label="{{ universe_label }}"{% endif %}
+            >
+              <div class="ai-nos-univers-image-wrapper-{{ ai_gen_id }}">
+                {% if universe_image %}
+                  <img
+                    src="{{ universe_image | image_url: width: 600 }}"
+                    alt="{{ universe_label | escape }}"
+                    loading="lazy"
+                    width="600"
+                    height="{{ 600 | divided_by: block.settings.image_aspect_ratio | round }}"
+                    class="ai-nos-univers-image-{{ ai_gen_id }}"
+                  >
+                {% else %}
+                  {{ 'collection-apparel-1' | placeholder_svg_tag }}
+                {% endif %}
+                {% if block.settings.show_overlay %}
+                  <div class="ai-nos-univers-overlay-{{ ai_gen_id }}"></div>
+                {% endif %}
+              </div>
+
+              {% if universe_label != blank %}
+                <p class="ai-nos-univers-label-{{ ai_gen_id }}">{{ universe_label }}</p>
+                {% if block.settings.show_accent %}
+                  <span class="ai-nos-univers-accent-{{ ai_gen_id }}"></span>
+                {% endif %}
+              {% endif %}
+            </a>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="ai-nos-univers-empty-state-{{ ai_gen_id }}">
+        <p>Enable and configure your brand universes in the block settings</p>
+      </div>
+    {% endif %}
+  </div>
+</nos-univers-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class NosUnivers{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.items = this.querySelectorAll('.ai-nos-univers-item-{{ ai_gen_id }}');
+        this.setupAccessibility();
+      }
+
+      setupAccessibility() {
+        this.items.forEach((item) => {
+          item.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              item.click();
+            }
+          });
+        });
+      }
+    }
+
+    customElements.define('nos-univers-{{ ai_gen_id }}', NosUnivers{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Nos Univers",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "section_title",
+      "label": "Section title"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Maximum width",
+      "min": 800,
+      "max": 1600,
+      "step": 50,
+      "unit": "px",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "vertical_padding",
+      "label": "Vertical padding",
+      "min": 10,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#e8e8e8"
+    },
+    {
+      "type": "header",
+      "content": "Section title style"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Title size",
+      "min": 12,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "title_spacing",
+      "label": "Title spacing",
+      "min": 10,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 25
+    },
+    {
+      "type": "select",
+      "id": "title_weight",
+      "label": "Title weight",
+      "options": [
+        { "value": "300", "label": "Light" },
+        { "value": "400", "label": "Normal" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi-bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "select",
+      "id": "title_transform",
+      "label": "Title transform",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "uppercase", "label": "Uppercase" },
+        { "value": "lowercase", "label": "Lowercase" },
+        { "value": "capitalize", "label": "Capitalize" }
+      ],
+      "default": "uppercase"
+    },
+    {
+      "type": "range",
+      "id": "title_letter_spacing",
+      "label": "Title letter spacing",
+      "min": 0,
+      "max": 5,
+      "step": 0.5,
+      "unit": "px",
+      "default": 2
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Columns on desktop",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "columns_tablet",
+      "label": "Columns on tablet",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Columns on mobile",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "Gap between items",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "gap_mobile",
+      "label": "Gap on mobile",
+      "min": 5,
+      "max": 30,
+      "step": 5,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Image style"
+    },
+    {
+      "type": "select",
+      "id": "image_aspect_ratio",
+      "label": "Image aspect ratio",
+      "options": [
+        { "value": "1", "label": "Square (1:1)" },
+        { "value": "1.33", "label": "Landscape (4:3)" },
+        { "value": "0.75", "label": "Portrait (3:4)" },
+        { "value": "1.5", "label": "Wide (3:2)" },
+        { "value": "0.67", "label": "Tall (2:3)" }
+      ],
+      "default": "0.75"
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "label": "Image border radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "checkbox",
+      "id": "show_overlay",
+      "label": "Show image overlay",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay opacity",
+      "min": 0,
+      "max": 0.8,
+      "step": 0.1,
+      "default": 0.2
+    },
+    {
+      "type": "header",
+      "content": "Label style"
+    },
+    {
+      "type": "range",
+      "id": "label_spacing",
+      "label": "Label spacing",
+      "min": 5,
+      "max": 30,
+      "step": 5,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "label_size",
+      "label": "Label size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "select",
+      "id": "label_weight",
+      "label": "Label weight",
+      "options": [
+        { "value": "300", "label": "Light" },
+        { "value": "400", "label": "Normal" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi-bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "500"
+    },
+    {
+      "type": "select",
+      "id": "label_transform",
+      "label": "Label transform",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "uppercase", "label": "Uppercase" },
+        { "value": "lowercase", "label": "Lowercase" },
+        { "value": "capitalize", "label": "Capitalize" }
+      ],
+      "default": "uppercase"
+    },
+    {
+      "type": "range",
+      "id": "label_letter_spacing",
+      "label": "Label letter spacing",
+      "min": 0,
+      "max": 4,
+      "step": 0.5,
+      "unit": "px",
+      "default": 1.5
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "label": "Label color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "label_hover_color",
+      "label": "Label hover color",
+      "default": "#d4af37"
+    },
+    {
+      "type": "header",
+      "content": "Gold accent"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_accent",
+      "label": "Show gold accent line",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#d4af37"
+    },
+    {
+      "type": "range",
+      "id": "accent_width",
+      "label": "Accent width",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "accent_hover_width",
+      "label": "Accent hover width",
+      "min": 30,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "accent_height",
+      "label": "Accent height",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "accent_spacing",
+      "label": "Accent spacing",
+      "min": 5,
+      "max": 20,
+      "step": 5,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "header",
+      "content": "Universe 1"
+    },
+    {
+      "type": "checkbox",
+      "id": "universe_1_enabled",
+      "label": "Enable universe 1",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "universe_1_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "universe_1_label",
+      "label": "Label",
+      "default": "Prêt-à-porter"
+    },
+    {
+      "type": "url",
+      "id": "universe_1_url",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Universe 2"
+    },
+    {
+      "type": "checkbox",
+      "id": "universe_2_enabled",
+      "label": "Enable universe 2",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "universe_2_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "universe_2_label",
+      "label": "Label",
+      "default": "Accessoires"
+    },
+    {
+      "type": "url",
+      "id": "universe_2_url",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Universe 3"
+    },
+    {
+      "type": "checkbox",
+      "id": "universe_3_enabled",
+      "label": "Enable universe 3",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "universe_3_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "universe_3_label",
+      "label": "Label",
+      "default": "Maison"
+    },
+    {
+      "type": "url",
+      "id": "universe_3_url",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Universe 4"
+    },
+    {
+      "type": "checkbox",
+      "id": "universe_4_enabled",
+      "label": "Enable universe 4",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "universe_4_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "universe_4_label",
+      "label": "Label",
+      "default": "Beauté"
+    },
+    {
+      "type": "url",
+      "id": "universe_4_url",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Universe 5"
+    },
+    {
+      "type": "checkbox",
+      "id": "universe_5_enabled",
+      "label": "Enable universe 5",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "universe_5_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "universe_5_label",
+      "label": "Label"
+    },
+    {
+      "type": "url",
+      "id": "universe_5_url",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Universe 6"
+    },
+    {
+      "type": "checkbox",
+      "id": "universe_6_enabled",
+      "label": "Enable universe 6",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "universe_6_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "universe_6_label",
+      "label": "Label"
+    },
+    {
+      "type": "url",
+      "id": "universe_6_url",
+      "label": "Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Nos Univers"
+    }
+  ]
+}
+{% endschema %}
