@@ -1,229 +1,101 @@
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BRAVIA</title>
-    <style>
-        /* إعادة تعيين الهوامش */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+{% liquid
+  assign announcement_text = section.settings.announcement_text | default: '✨ Livraison offerte dès 70 € • 🔒 Paiement 100 % sécurisé • ↩ Retours gratuits sous 14 jours'
+  assign menu_handle = section.settings.menu | default: 'main-menu'
+  assign menu_links = linklists[menu_handle].links
+%}
 
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f4f4f4;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            background: #ffffff;
-            min-height: 100vh;
-        }
-
-        /* =============================================
-           ★★★ الـ HEADER مع الـ PADDING المطلوب ★★★
-           padding: 20px 48px; 
-           (20px أعلى وأسفل، 48px يمين ويسار)
-           ============================================= */
-        .header {
-            background: #0b0b0b;      /* خلفية سوداء */
-            color: #ffffff;
-            
-            /* هذا هو الـ Padding المطلوب بالضبط */
-            padding: 20px 48px;       
-            
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 10px 20px;
-            border-bottom: 1px solid #333;
-        }
-
-        /* الشعار */
-        .logo {
-            font-size: 1.6rem;
-            font-weight: bold;
-            color: white;
-            letter-spacing: 1px;
-        }
-
-        /* قائمة الروابط */
-        .nav-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px 22px;
-        }
-
-        .nav-links a {
-            color: #d0d0d0;
-            text-decoration: none;
-            font-size: 0.95rem;
-            transition: 0.2s;
-        }
-
-        .nav-links a:hover {
-            color: #ffffff;
-        }
-
-        /* الأزرار اليمنى (Shopping و Gemini) */
-        .actions {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .actions a {
-            color: #d0d0d0;
-            text-decoration: none;
-            font-size: 0.95rem;
-            transition: 0.2s;
-        }
-
-        .actions a:hover {
-            color: #ffffff;
-        }
-
-        .gemini {
-            background: #2a2a2a;
-            padding: 5px 16px;
-            border-radius: 30px;
-        }
-
-        /* =============================================
-           باقي أجزاء الصفحة (كما في الصورة)
-           ============================================= */
-        .sidebar {
-            background: #f3f4f6;
-            padding: 15px 48px;
-            border-bottom: 1px solid #ddd;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px 30px;
-            font-size: 0.9rem;
-            color: #333;
-        }
-
-        .sidebar span {
-            background: white;
-            padding: 4px 15px;
-            border-radius: 20px;
-            border: 1px solid #ccc;
-        }
-
-        .main-content {
-            padding: 40px 48px;
-            min-height: 300px;
-        }
-
-        .main-content h2 {
-            font-weight: normal;
-            margin-bottom: 15px;
-        }
-
-        .footer {
-            background: #f3f4f6;
-            padding: 20px 48px;
-            border-top: 1px solid #ddd;
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 10px;
-            color: #555;
-        }
-
-        /* جعل التصميم مناسباً للجوال */
-        @media (max-width: 768px) {
-            .header {
-                padding: 15px 20px; /* مسافات أقل للجوال */
-                flex-direction: column;
-                align-items: stretch;
-                text-align: center;
-            }
-            .nav-links {
-                justify-content: center;
-            }
-            .actions {
-                justify-content: center;
-            }
-            .sidebar, .main-content, .footer {
-                padding-left: 20px;
-                padding-right: 20px;
-            }
-        }
-    </style>
-</head>
-<body>
-
-<div class="container">
-
-    <!-- ==========================================
-    الهيدر (BRAVIA + القائمة + الأزرار)
-    ========================================== -->
-    <header class="header">
-
-        <div class="logo">BRAVIA</div>
-
-        <!-- القائمة (Accueil, Nos univers, Nouveautés, ...) -->
-        <nav class="nav-links">
-            <a href="#">Accueil</a>
-            <a href="#">Nos univers</a>
-            <a href="#">Nouveautés</a>
-            <a href="#">Mode & Accessoires</a>
-            <a href="#">Sport & Fitness</a>
-            <a href="#">Maison & Décoration</a>
-            <a href="#">Beauté</a>
-            <a href="#">Électronique</a>
-        </nav>
-
-        <!-- الأزرار اليمنى -->
-        <div class="actions">
-            <a href="#">🛒 Shopping</a>
-            <a href="#" class="gemini">✨ Ask Gemini</a>
-        </div>
-
-    </header>
-
-    <!-- ==========================================
-    الشريط الجانبي (Sidebar)
-    ========================================== -->
-    <div class="sidebar">
-        <span>⚙️ Theme settings</span>
-        <span>Theme</span>
-        <span>Custom CSS</span>
-        <span style="border: none; background: transparent; color: #777;">Add custom styles to your entire online store.</span>
-    </div>
-
-    <!-- ==========================================
-    المحتوى الرئيسي
-    ========================================== -->
-    <main class="main-content">
-        <h2>✅ Header Padding يعمل تماماً</h2>
-        <p style="color: #555; line-height: 2; font-size: 1.05rem;">
-            <strong>Padding العلوي والسفلي:</strong> 20px <br>
-            <strong>Padding الأيمن والأيسر:</strong> 48px <br><br>
-            لتغيير المسافات، ابحث عن <code style="background:#eee;padding:2px 8px;">padding: 20px 48px;</code> 
-            داخل الـ CSS غيّر الأرقام كما تحب.
-        </p>
-        <p style="color: #aaa; margin-top: 20px; font-size: 0.9rem;">
-            💡 ملاحظة: الأرقام مطبقة بالضبط كما في صورتك.
-        </p>
-    </main>
-
-    <!-- ==========================================
-    الفوتر (© BRAVIA  -  Activate Window)
-    ========================================== -->
-    <footer class="footer">
-        <span>© BRAVIA</span>
-        <span>Activate Window</span>
-    </footer>
-
+<div class="miranda-announcement-bar">
+  <div class="miranda-shell">
+    <p>{{ announcement_text }}</p>
+  </div>
 </div>
 
-</body>
-</html>
+<header class="miranda-header" data-header>
+  <div class="miranda-shell miranda-header__inner">
+    <button class="miranda-icon-button miranda-mobile-only" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="miranda-mobile-menu" data-mobile-menu-toggle>
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M3 6h18M3 12h18M3 18h18" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path>
+      </svg>
+    </button>
+
+    <nav class="miranda-header__nav miranda-desktop-only" aria-label="Navigation principale">
+      {% for link in menu_links limit: 3 %}
+        <a href="{{ link.url }}">{{ link.title }}</a>
+      {% endfor %}
+    </nav>
+
+    <a href="{{ routes.root_url }}" class="miranda-brand" aria-label="{{ shop.name }}">
+      <span class="miranda-brand__mark">LM</span>
+      <span class="miranda-brand__text">
+        <span class="miranda-brand__name">Le Choix de Miranda</span>
+        <span class="miranda-brand__tag">Maison · Paris</span>
+      </span>
+    </a>
+
+    <nav class="miranda-header__nav miranda-desktop-only miranda-header__nav--right" aria-label="Navigation secondaire">
+      {% for link in menu_links offset: 3 %}
+        <a href="{{ link.url }}">{{ link.title }}</a>
+      {% endfor %}
+    </nav>
+
+    <div class="miranda-header__actions">
+      <a href="{{ routes.search_url }}" class="miranda-icon-button" aria-label="Rechercher">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.6"></circle>
+          <path d="M16 16l5 5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.6"></path>
+        </svg>
+      </a>
+      <a href="{{ routes.account_url | default: '/account' }}" class="miranda-icon-button" aria-label="Mon compte">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="8" r="3.5" fill="none" stroke="currentColor" stroke-width="1.6"></circle>
+          <path d="M5 20c1.8-3.8 11.2-3.8 14 0" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.6"></path>
+        </svg>
+      </a>
+      <a href="{{ routes.cart_url }}" class="miranda-icon-button miranda-cart-link" aria-label="Panier">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M7 9V7a5 5 0 0 1 10 0v2" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path>
+          <path d="M5.5 9.5h13l-1.2 10H6.7z" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1.6"></path>
+        </svg>
+        {% if cart.item_count > 0 %}
+          <span class="miranda-badge">{{ cart.item_count }}</span>
+        {% endif %}
+      </a>
+    </div>
+  </div>
+
+  <nav class="miranda-mobile-menu" id="miranda-mobile-menu" aria-label="Navigation mobile" hidden>
+    <div class="miranda-shell miranda-mobile-menu__inner">
+      {% for link in menu_links %}
+        <a href="{{ link.url }}">{{ link.title }}</a>
+      {% endfor %}
+      <div class="miranda-mobile-menu__meta">
+        <a href="{{ routes.account_url | default: '/account' }}">Mon compte</a>
+        <a href="/pages/contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "Texte annonce",
+      "default": "✨ Livraison offerte dès 70 € • 🔒 Paiement 100 % sécurisé • ↩ Retours gratuits sous 14 jours"
+    },
+
+
+
+    
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu"
+    }
+  ]
+}
+{% endschema %}
