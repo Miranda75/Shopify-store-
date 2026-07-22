@@ -14,7 +14,7 @@
     }
 
     if (menu) {
-      menu.hidden = true;
+      menu.classList.remove('is-open');
     }
   }
 
@@ -47,7 +47,11 @@
         var isOpen = trigger.getAttribute('aria-expanded') === 'true';
         closeAllDropdowns(item);
         trigger.setAttribute('aria-expanded', String(!isOpen));
-        menu.hidden = isOpen;
+        if (isOpen) {
+          menu.classList.remove('is-open');
+        } else {
+          menu.classList.add('is-open');
+        }
       });
     });
 
