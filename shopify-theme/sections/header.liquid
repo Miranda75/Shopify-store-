@@ -86,6 +86,13 @@
       "label": "Texte annonce",
       "default": "✨ Livraison offerte dès 70 € • 🔒 Paiement 100 % sécurisé • ↩ Retours gratuits sous 14 jours"
     },
+
+{% for link in linklists.main-menu.links %}
+  {% if link.links != blank %}
+    <!-- هنا لازم يبقى فيه loop للـ child links و SVG/icons -->
+  {% endif %}
+{% endfor %}
+
     {
       "type": "link_list",
       "id": "menu",
