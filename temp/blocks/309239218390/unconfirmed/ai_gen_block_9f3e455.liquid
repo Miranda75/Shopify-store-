@@ -1,6 +1,311 @@
+{% doc %}
+  @prompt
+    Fix the "Nos Univers" dropdown menu so it properly closes/collapses when clicked again or when the user clicks outside of it. The dropdown currently stays open after being clicked. Add a proper toggle behavior with: a click handler that opens and closes the menu, an outside-click listener to dismiss it, and smooth open/close transition. Do not change the existing menu structure or styling.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-dropdown-menu-{{ ai_gen_id }} {
+    position: relative;
+    display: inline-block;
+    width: {{ block.settings.desktop_width_percent }}%;
+  }
+
+  .ai-dropdown-toggle-{{ ai_gen_id }} {
+    background-color: {{ block.settings.button_bg_color }};
+    color: {{ block.settings.button_text_color }};
+    padding: 12px 20px;
+    border: 1px solid {{ block.settings.button_border_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+    font-size: {{ block.settings.font_size }}px;
+    transition: background-color 0.3s ease;
+  }
+
+  .ai-dropdown-toggle-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_bg_color }};
+  }
+
+  .ai-dropdown-arrow-{{ ai_gen_id }} {
+    width: 12px;
+    height: 12px;
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+  }
+
+  .ai-dropdown-toggle-{{ ai_gen_id }}[aria-expanded="true"] .ai-dropdown-arrow-{{ ai_gen_id }} {
+    transform: rotate(180deg);
+  }
+
+  .ai-dropdown-content-{{ ai_gen_id }} {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    width: 100%;
+    background-color: {{ block.settings.dropdown_bg_color }};
+    border: 1px solid {{ block.settings.dropdown_border_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+    visibility: hidden;
+  }
+
+  .ai-dropdown-content-{{ ai_gen_id }}.active {
+    max-height: 400px;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .ai-dropdown-list-{{ ai_gen_id }} {
+    list-style: none;
+    margin: 0;
+    padding: 8px 0;
+  }
+
+  .ai-dropdown-item-{{ ai_gen_id }} {
+    margin: 0;
+  }
+
+  .ai-dropdown-link-{{ ai_gen_id }} {
+    display: block;
+    padding: 12px 20px;
+    color: {{ block.settings.dropdown_text_color }};
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+  }
+
+  .ai-dropdown-link-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.dropdown_hover_bg_color }};
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-dropdown-menu-{{ ai_gen_id }} {
+      width: 100%;
+    }
+  }
+{% endstyle %}
+
+<dropdown-menu-{{ ai_gen_id }} class="ai-dropdown-menu-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <button
+    type="button"
+    class="ai-dropdown-toggle-{{ ai_gen_id }}"
+    aria-expanded="false"
+    aria-haspopup="true"
+  >
+    <span>{{ block.settings.menu_title }}</span>
+    <svg
+      class="ai-dropdown-arrow-{{ ai_gen_id }}"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <polyline points="6 9 12 15 18 9"></polyline>
+    </svg>
+  </button>
+
+  <div class="ai-dropdown-content-{{ ai_gen_id }}">
+    <ul class="ai-dropdown-list-{{ ai_gen_id }}">
+      {% if block.settings.link_list != blank %}
+        {% for link in block.settings.link_list.links %}
+          <li class="ai-dropdown-item-{{ ai_gen_id }}">
+            <a href="{{ link.url }}" class="ai-dropdown-link-{{ ai_gen_id }}">
+              {{ link.title }}
+            </a>
+          </li>
+        {% endfor %}
+      {% else %}
+        <li class="ai-dropdown-item-{{ ai_gen_id }}">
+          <a href="#" class="ai-dropdown-link-{{ ai_gen_id }}">Sample Link 1</a>
+        </li>
+        <li class="ai-dropdown-item-{{ ai_gen_id }}">
+          <a href="#" class="ai-dropdown-link-{{ ai_gen_id }}">Sample Link 2</a>
+        </li>
+        <li class="ai-dropdown-item-{{ ai_gen_id }}">
+          <a href="#" class="ai-dropdown-link-{{ ai_gen_id }}">Sample Link 3</a>
+        </li>
+      {% endif %}
+    </ul>
+  </div>
+</dropdown-menu-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class DropdownMenu{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.toggle = null;
+        this.content = null;
+        this.isOpen = false;
+      }
+
+      connectedCallback() {
+        this.toggle = this.querySelector('.ai-dropdown-toggle-{{ ai_gen_id }}');
+        this.content = this.querySelector('.ai-dropdown-content-{{ ai_gen_id }}');
+        
+        if (!this.toggle || !this.content) return;
+
+        this.toggle.addEventListener('click', this.handleToggleClick.bind(this));
+        document.addEventListener('click', this.handleOutsideClick.bind(this));
+      }
+
+      disconnectedCallback() {
+        if (this.toggle) {
+          this.toggle.removeEventListener('click', this.handleToggleClick.bind(this));
+        }
+        document.removeEventListener('click', this.handleOutsideClick.bind(this));
+      }
+
+      handleToggleClick(event) {
+        event.stopPropagation();
+        this.isOpen = !this.isOpen;
+        this.updateDropdownState();
+      }
+
+      handleOutsideClick(event) {
+        if (!this.contains(event.target) && this.isOpen) {
+          this.isOpen = false;
+          this.updateDropdownState();
+        }
+      }
+
+      updateDropdownState() {
+        if (this.isOpen) {
+          this.content.classList.add('active');
+          this.toggle.setAttribute('aria-expanded', 'true');
+        } else {
+          this.content.classList.remove('active');
+          this.toggle.setAttribute('aria-expanded', 'false');
+        }
+      }
+    }
+
+    customElements.define('dropdown-menu-{{ ai_gen_id }}', DropdownMenu{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Nos Univers dropdown",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Menu"
+    },
+    {
+      "type": "text",
+      "id": "menu_title",
+      "label": "Menu title",
+      "default": "Nos Univers"
+    },
+    {
+      "type": "link_list",
+      "id": "link_list",
+      "label": "Menu"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "header",
+      "content": "Button style"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg_color",
+      "label": "Hover background",
+      "default": "#f4f4f4"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Border color",
+      "default": "#cccccc"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "Font size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Dropdown style"
+    },
+    {
+      "type": "color",
+      "id": "dropdown_bg_color",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "dropdown_text_color",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "dropdown_hover_bg_color",
+      "label": "Hover background",
+      "default": "#f4f4f4"
+    },
+    {
+      "type": "color",
+      "id": "dropdown_border_color",
+      "label": "Border color",
+      "default": "#cccccc"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Nos Univers dropdown"
+    }
+  ]
+}
 {% endschema %}
