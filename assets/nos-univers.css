@@ -12,8 +12,10 @@
 }
 .nos-univers__heading{
     font-family:"Cormorant Garamond",serif;
-    font-size:clamp(2rem,4vw,3rem);
+    font-size:20px;
     font-weight:600;
+   bottom:24px;
+   left:24px;
     letter-spacing:.05em;
 }
 .nos-univers__heading {
