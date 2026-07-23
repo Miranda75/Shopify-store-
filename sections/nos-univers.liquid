@@ -32,7 +32,7 @@
                   | image_url: width: 1200
                   | image_tag:
                     class: 'nos-univers__image',
-                    alt: block.settings.title | default: selected_collection.title | escape,
+                     alt: selected_collection.title | default: block.settings.title | escape,
                     decoding: 'async',
                     loading: 'lazy',
                     widths: '400,600,800,1000,1200',
