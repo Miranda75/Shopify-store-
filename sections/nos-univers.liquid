@@ -16,11 +16,15 @@
           {%- endif -%}
 
           <a
-            class="nos-univers__card"
-            href="{{ card_url }}"
-            {% if selected_collection == blank %}aria-disabled="true"{% endif %}
-            {{ block.shopify_attributes }}
-          >
+  class="nos-univers__card{% if selected_collection == blank %} is-disabled{% endif %}"
+  href="{{ card_url }}"
+  {% if selected_collection == blank %}
+    aria-disabled="true"
+    tabindex="-1"
+  {% endif %}
+  {{ block.shopify_attributes }}
+>
+          
             <div class="nos-univers__media">
               {%- if block.settings.image != blank -%}
                 {{
