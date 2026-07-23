@@ -133,8 +133,7 @@ svg {
   position: sticky;
   top: 0;
   z-index: 40;
-  background: rgba(249, 248, 246, 0.94);
-  backdrop-filter: blur(16px);
+  background: #f9f8f6;
   border-bottom: 1px solid rgba(229, 224, 216, 0.9);
 }
 
