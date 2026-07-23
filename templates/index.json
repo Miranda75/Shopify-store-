@@ -26,6 +26,7 @@
         "maison": {
           "type": "category_card",
           "settings": {
+            "image": "shopify://shop_images/maison.png",
             "title": "🏠 Maison",
             "collection": ""
           }
@@ -33,6 +34,7 @@
         "beaute": {
           "type": "category_card",
           "settings": {
+            "image": "shopify://shop_images/beaute.png",
             "title": "💄 Beauté",
             "collection": ""
           }
@@ -40,6 +42,7 @@
         "accessoires": {
           "type": "category_card",
           "settings": {
+            "image": "shopify://shop_images/accessoires.png",
             "title": "⌚ Accessoires",
             "collection": ""
           }
@@ -47,6 +50,7 @@
         "sport": {
           "type": "category_card",
           "settings": {
+            "image": "shopify://shop_images/sport.png",
             "title": "🏃 Sport",
             "collection": ""
           }
@@ -54,6 +58,7 @@
         "electronique": {
           "type": "category_card",
           "settings": {
+            "image": "shopify://shop_images/electronique.png",
             "title": "💻 Électronique",
             "collection": ""
           }
@@ -61,6 +66,7 @@
         "nouveautes": {
           "type": "category_card",
           "settings": {
+            "image": "shopify://shop_images/Nouveautes.png",
             "title": "✨ Nouveautés",
             "collection": ""
           }

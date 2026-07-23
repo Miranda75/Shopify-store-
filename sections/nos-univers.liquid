@@ -16,15 +16,11 @@
           {%- endif -%}
 
           <a
-  class="nos-univers__card{% if selected_collection == blank %} is-disabled{% endif %}"
-  href="{{ card_url }}"
-  {% if selected_collection == blank %}
-    aria-disabled="true"
-    tabindex="-1"
-  {% endif %}
-  {{ block.shopify_attributes }}
->
-          
+            class="nos-univers__card"
+            href="{{ card_url }}"
+            {% if selected_collection == blank %}aria-disabled="true"{% endif %}
+            {{ block.shopify_attributes }}
+          >
             <div class="nos-univers__media">
               {%- if block.settings.image != blank -%}
                 {{
@@ -32,25 +28,21 @@
                   | image_url: width: 1200
                   | image_tag:
                     class: 'nos-univers__image',
-                     alt: selected_collection.title | default: block.settings.title | escape,
+                    alt: block.settings.title,
                     decoding: 'async',
                     loading: 'lazy',
-                    widths: '400,600,800,1000,1200',
+                    widths: '400, 600, 800, 1000, 1200, 1400, 1600',
                     sizes: '(min-width: 990px) calc((100vw - 64px) / 3), (min-width: 750px) calc((100vw - 48px) / 2), calc(100vw - 32px)'
                 }}
               {%- else -%}
                 <div class="nos-univers__placeholder" aria-hidden="true"></div>
               {%- endif -%}
 
-              <div class="nos-univers__overlay"></div>
-
-               {%- if block.settings.title != blank -%}
-                 <p class="nos-univers__title">{{ block.settings.title }}</p>
-                 {%- elsif selected_collection != blank -%}
-                 <p class="nos-univers__title">{{ selected_collection.title }}</p>
-               {%- endif -%}
-
-             
+              {%- if block.settings.title != blank -%}
+                <p class="nos-univers__title">{{ block.settings.title }}</p>
+              {%- elsif selected_collection != blank -%}
+                <p class="nos-univers__title">{{ selected_collection.title }}</p>
+              {%- endif -%}
             </div>
           </a>
         {% endfor %}
@@ -87,16 +79,6 @@
           "label": "Image",
           "info": "Laissez vide pour utiliser un dégradé luxueux"
         },
-
-         {
-  "type": "range",
-  "id": "columns_desktop",
-  "min": 2,
-  "max": 4,
-  "step": 1,
-  "default": 3,
-  "label": "Colonnes (Desktop)"
-}
         {
           "type": "text",
           "id": "title",
