@@ -38,11 +38,15 @@
                 <div class="nos-univers__placeholder" aria-hidden="true"></div>
               {%- endif -%}
 
-              {%- if block.settings.title != blank -%}
-                <p class="nos-univers__title">{{ block.settings.title }}</p>
-              {%- elsif selected_collection != blank -%}
-                <p class="nos-univers__title">{{ selected_collection.title }}</p>
-              {%- endif -%}
+              <div class="nos-univers__overlay"></div>
+
+               {%- if block.settings.title != blank -%}
+                 <p class="nos-univers__title">{{ block.settings.title }}</p>
+                 {%- elsif selected_collection != blank -%}
+                 <p class="nos-univers__title">{{ selected_collection.title }}</p>
+               {%- endif -%}
+
+             
             </div>
           </a>
         {% endfor %}
