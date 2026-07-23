@@ -7,8 +7,11 @@
 }
 
 .nos-univers__container {
-  width: min(1200px, 100% - 2rem);
+  width: min(1400px, 100% - 2rem);
   margin-inline: auto;
+}
+.nos-univers{
+    padding-bottom:80px;
 }
 .nos-univers__heading{
     font-family:"Cormorant Garamond",serif;
