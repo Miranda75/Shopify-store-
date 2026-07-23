@@ -10,7 +10,12 @@
   width: min(1200px, 100% - 2rem);
   margin-inline: auto;
 }
-
+.nos-univers__heading{
+    font-family:"Cormorant Garamond",serif;
+    font-size:clamp(2rem,4vw,3rem);
+    font-weight:600;
+    letter-spacing:.05em;
+}
 .nos-univers__heading {
   margin: 0 0 clamp(1rem, 2.2vw, 1.75rem);
   text-align: center;
@@ -37,14 +42,14 @@
 .nos-univers__card {
   position: relative;
   display: block;
-  border-radius: 24px;
+  border-radius: 28px;
   overflow: hidden;
   text-decoration: none;
   color: inherit;
   background: rgba(0, 0, 0, 0.03);
   box-shadow:
     0 1px 2px rgba(0, 0, 0, 0.06),
-    0 8px 24px rgba(0, 0, 0, 0.08);
+    0 18px 45px rgba(0, 0, 0, 0.08);
   transform: translateY(0) scale(1);
   transition:
     transform 320ms cubic-bezier(.22, .61, .36, 1),
@@ -57,7 +62,11 @@
   aspect-ratio: 4 / 3;
   width: 100%;
 }
-
+.nos-univers__card.is-disabled{
+    cursor:default;
+    pointer-events:none;
+    opacity:.75;
+}
 /* Per-card gradient backgrounds */
 .nos-univers__card:nth-child(1) .nos-univers__media {
   background: linear-gradient(135deg, #D4A574 0%, #8B6B4A 100%);
@@ -100,6 +109,8 @@
     transform 500ms cubic-bezier(.22, .61, .36, 1),
     filter 320ms ease;
   will-change: transform, filter;
+   backface-visibility:hidden;
+-webkit-backface-visibility:hidden;
 }
 
 .nos-univers__placeholder {
