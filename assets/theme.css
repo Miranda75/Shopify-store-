@@ -26,7 +26,7 @@ body {
   margin: 0;
   background: var(--color-ivory);
   color: var(--color-charcoal);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
   line-height: 1.6;
 }
 
